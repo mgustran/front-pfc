@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="storeApp" class="ng-scope">
+<html ng-app="myApp" class="ng-scope">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Skeight - More Than Skates</title>
@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="shortcut icon" href="img/skeight_logo2.png" sizes="32x32" type="image/png">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 </head>
 
 <body id="home">
@@ -44,7 +45,7 @@
 
 
 
-<section id="products" class="padding-top-bottom ng-scope" ng-controller="productsController">
+<section id="products" ng-controller="productsController" class="padding-top-bottom ng-scope">
     <div class="container">
         <header class="section-header text-centerf">
             <h2>Categorias</h2>
@@ -191,6 +192,29 @@
     </div>
 </footer>
 
+<div  ng-controller="productsController">
+
+    <p>Today's welcome message is:</p>
+    <h1>{{products}}</h1>
+
+</div>
+
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function($scope, $http) {
+        $http.get("http://localhost:8080/user/article/1")
+            .then(function(response) {
+                $scope.myWelcome = response.data;
+            });
+    });
+
+    app.controller('productsController', function($scope, $http) {
+        $http.get("http://localhost:8080/user/articles")
+            .then(function(response) {
+                $scope.products = response.data;
+            });
+    });
+</script>
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
 <script type="text/javascript" src="js/script.js"></script>
