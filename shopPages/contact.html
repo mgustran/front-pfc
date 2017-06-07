@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html ng-app="storeApp" class="ng-scope">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Skeight - Contacto</title>
+
+    <meta name="description" content="Skeight - The Definitive WebShop And Spot Finder">
+    <meta name="author" content="mgustran@github.com">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="shortcut icon" href="../img/skeight_logo2.png" sizes="32x32" type="image/png">
+</head>
+
+<body id="home" onload="location.href='#contacto'">
+<div id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand active" href="../home.html">
+                <img id="navlogo" src="../img/Skeight.jpg" alt="microstore" width="122" height="45">
+            </a>
+
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul id="navigation" class="nav navbar-nav navbar-right text-center">
+                <li><a href="../shopPages/shop.html" class="">Tienda</a></li>
+                <li><a href="../spotPages/#">Mapa</a></li>
+                <li><a href="../shopPages/contact.html">Contacto</a></li>
+
+                <li class="dropdown">
+                    <button type="button" class="btn btn-default icon-cart dropdown-toggle" style="font-size: 20px"></button>
+                </li>
+
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+
+<div id="hero" class="" data-height="600" style="height: 581px;">
+    <img class="" src="../img/contactWall.jpg" alt="wall">
+</div>
+
+
+
+<section id="contacto" class="gray-bg padding-top-bottom">
+    <div class="container">
+        <header class="section-header text-center">
+            <h1><strong>Contacto</strong></h1>
+            <p>Realiza tus consultas acerca de tus dudas</p>
+        </header>
+        <form action="http://demo.angelostudio.net/microstore/index.html" method="post" novalidate="" id="contact-form" class="ng-pristine ng-valid">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-4 contact-info cta-messag">
+                    <address>
+                        <strong>Skeight</strong><br>
+                        Isidoro Antillon 57, 1A<br>
+                        Palma de Mallorca, Illes Balears 07005<br>
+                        (971) 53 26 16 <br>
+                        mgustran@hotmail.com
+                    </address>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-8 anima fade-up d1">
+                    <div class="form-group">
+                        <label class="control-label" for="contact-name">Nombre</label>
+                        <div class="controls">
+                            <input id="contact-name" name="contactName" placeholder="Tu nombre" class="form-control input-lg requiredField" type="text">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="contact-mail">Email</label>
+                        <div class=" controls">
+                            <input id="contact-mail" name="email" placeholder="Tu email" class="form-control input-lg requiredField" type="email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="contact-message">Mensaje</label>
+                        <div class="controls">
+                            <textarea id="contact-message" name="comments" placeholder="Tu mensaje" class="form-control input-lg requiredField" rows="5"></textarea>
+                        </div>
+                    </div>
+                    <p>
+                        <button name="submit" type="submit" class="btn btn-store btn-block">Enviar Message</button></p>
+                    <input type="hidden" name="submitted" id="submitted3" value="true">
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section id="newsletter" class="light-typo dark-bg padding-top-bottom  transparent-bg">
+    <div class="container ">
+        <header class="section-header text-center">
+            <h2>Mantente en contacto con nosotros</h2>
+            <h4>Inscribete para recibir Noticias y Ofertas en tu E-Mail</h4>
+        </header>
+        <div class="row">
+            <form id="newsletter-form" action="http://demo.angelostudio.net/microstore/index.html" method="POST" class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1  ng-pristine ng-valid">
+                <div class="input-group">
+                    <input id="newsletter-mail" name="email" placeholder="Introduce tu e-mail" class="form-control input-lg" type="email">
+                    <span class="input-group-btn">
+								<button name="submit" type="submit" class="btn btn-store">Subscribir!</button>
+							</span>
+                </div>
+                <input type="hidden" name="submitted" id="submitted2" value="true">
+            </form>
+        </div>
+    </div>
+</section>
+
+<footer id="main-footer" class="dark-bg light-typo">
+    <div class="container">
+        <p class="pull-left copyright">© Skeight 2017. <br> Designed by <a href="https://github.com/mgustran" target="_blank">Miquel Gustran</a>.<br>
+        </p>
+
+        <div class="pull-right paymentMethodImg copyright">
+            <a class="btn btn-store outline" href="https://github.com/mgustran/front-pfc">Terminos y condiciones</a>
+        </div>
+    </div>
+</footer>
+
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
+<script type="text/javascript" src="../js/script.js"></script>
+
+<script type="text/javascript">
+    function load()
+    {
+        window.location.hash="#tablas";
+    }
+</script>
+
+</body></html>

@@ -16,9 +16,6 @@
 <div id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-            </button>
             <a class="navbar-brand active" href="home.html">
                 <img id="navlogo" src="img/Skeight.jpg" alt="microstore" width="122" height="45">
             </a>
@@ -26,19 +23,12 @@
         </div>
         <div class="collapse navbar-collapse">
             <ul id="navigation" class="nav navbar-nav navbar-right text-center">
-                <li><a href="#products" class="">Products</a></li>
-                <li><a href="http://demo.angelostudio.net/microstore/#about">About</a></li>
-                <li><a href="http://demo.angelostudio.net/microstore/#orderform">Order</a></li>
-                <li><a href="http://demo.angelostudio.net/microstore/#contact">Contact</a></li>
-                <li><a href="http://demo.angelostudio.net/" class="external">External link</a></li>
+                <li><a href="shopPages/shop.html" class="">Tienda</a></li>
+                <li><a href="spotPages/#">Mapa</a></li>
+                <li><a href="shopPages/contact.html">Contacto</a></li>
+
                 <li class="dropdown">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">UK</button>
-                    <ul class="dropdown-menu">
-                        <li><a href="http://demo.angelostudio.net/microstore/#">English</a></li>
-                        <li><a href="http://demo.angelostudio.net/microstore/#">Deutsch</a></li>
-                        <li><a href="http://demo.angelostudio.net/microstore/#">France</a></li>
-                        <li><a href="http://demo.angelostudio.net/microstore/#">Slovak</a></li>
-                    </ul>
+                    <button type="button" class="btn btn-default icon-cart dropdown-toggle" style="font-size: 20px"></button>
                 </li>
 
             </ul>
@@ -49,13 +39,14 @@
 
 <div id="hero" class="" data-height="600" style="height: 581px;">
     <img class="" src="img/homeWall.jpg" alt="wall">
+
 </div>
 
 
 
 <section id="products" class="padding-top-bottom ng-scope" ng-controller="productsController">
     <div class="container">
-        <header class="section-header text-center anima fade-up in">
+        <header class="section-header text-centerf">
             <h2>Categorias</h2>
         </header>
     </div>
@@ -141,7 +132,7 @@
 
             <div class="container">
                 <div class="col-md-12 text-center">
-                    <a class="btn btn-store cta-button smooth-scroll" href="#orderform">Ir a la Tienda</a>
+                    <a class="btn btn-store cta-button smooth-scroll" href="shopPages/shop.html">Ir a la Tienda</a>
                 </div>
             </div>
 
@@ -167,20 +158,23 @@
     </div>
 </section>
 
-<section id="cta" class="padding-top-bottom color-bg light-typo">
+<section id="cta" class="padding-top-bottom-medium color-bg light-typo">
+    <header class="section-header-cta text-center">
+        <h2>Nuestras Ventajas</h2>
+    </header>
     <div class="container">
         <div class="row text-center">
             <div class="col-md-4 col-sm-4 news anima fade-up">
                 <i class="icon-trophy iconBig"></i>
-                <h3>Quality guaranteed</h3>
+                <h3>Calidad</h3>
             </div>
             <div class="col-md-4 col-sm-4 news anima fade-up d1">
                 <i class="icon-truck iconBig"></i>
-                <h3>Home delivery</h3>
+                <h3>Transporte</h3>
             </div>
             <div class="col-md-4 col-sm-4 anima fade-up d2">
                 <i class="icon-lock iconBig"></i>
-                <h3>Secure payment</h3>
+                <h3>Pago Seguro</h3>
             </div>
         </div>
     </div>
@@ -188,11 +182,11 @@
 
 <footer id="main-footer" class="dark-bg light-typo">
     <div class="container">
-        <p class="pull-left copyright">© MicroStore 2014. <br> Designed by <a href="http://demo.angelostudio.net/" target="_blank">Angelo Studio</a>.<br>
+        <p class="pull-left copyright">© Skeight 2017. <br> Designed by <a href="https://github.com/mgustran" target="_blank">Miquel Gustran</a>.<br>
         </p>
 
         <div class="pull-right paymentMethodImg copyright">
-            <a class="btn btn-store outline" href="http://demo.angelostudio.net/microstore/#" data-toggle="modal" data-target=".text-modal">Terms &amp; conditions</a>
+            <a class="btn btn-store outline" href="https://github.com/mgustran/front-pfc">Terminos y condiciones</a>
         </div>
     </div>
 </footer>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html ng-app="storeApp" class="ng-scope">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Skeight - Accesorios</title>
+
+    <meta name="description" content="Skeight - The Definitive WebShop And Spot Finder">
+    <meta name="author" content="mgustran@github.com">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="shortcut icon" href="../img/skeight_logo2.png" sizes="32x32" type="image/png">
+</head>
+
+<body id="home" onload="location.href='#accesorios'">
+<div id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand active" href="../home.html">
+                <img id="navlogo" src="../img/Skeight.jpg" alt="microstore" width="122" height="45">
+            </a>
+
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul id="navigation" class="nav navbar-nav navbar-right text-center">
+                <li><a href="tablas.html" class="">Tablas</a></li>
+                <li><a href="ejes.html">Ejes</a></li>
+                <li><a href="ruedas.html">Ruedas</a></li>
+                <li><a href="rodamientos.html">Rodamientos</a></li>
+                <li><a href="accesorios.html">Accesorios</a></li>
+                <li><a href="tcompletas.html">Tablas Completas</a></li>
+                <li class="dropdown">
+                    <button type="button" class="btn btn-default dropdown-toggle icon-cart" data-toggle="dropdown"></button>
+                </li>
+
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+<div id="hero" class="" data-height="600" style="height: 581px;">
+    <img class="" src="../img/accesoriosWall.jpg" alt="wall">
+</div>
+
+
+
+<section id="accesorios" class="padding-top-bottom-first ng-scope gray-bg" ng-controller="productsController">
+    <div class="container">
+        <header class="section-header text-center">
+            <h2>Accesorios</h2>
+        </header>
+    </div>
+    <div class="container">
+        <div id="accesorios-container" class="row">
+            <article class="product col-xs-12 col-sm-6 col-md-3 ">
+                <div class="img-box">
+                    <div class="hover-mask2"></div>
+                    <span class="product-icon icon-eye"></span>
+                    <img class="img-responsive project-image" src="../img/accesorios.png" alt="">
+                </div>
+                <div class="product-info col-md-12">
+                    <p class="project-price">$600</p>
+                    <div>
+                        <h4 class="project-title ng-binding">Accesorios</h4>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </div>
+</section>
+
+
+<footer id="main-footer" class="dark-bg light-typo">
+    <div class="container">
+        <p class="pull-left copyright">© Skeight 2017. <br> Designed by <a href="https://github.com/mgustran" target="_blank">Miquel Gustran</a>.<br>
+        </p>
+
+        <div class="pull-right paymentMethodImg copyright">
+            <a class="btn btn-store outline" href="https://github.com/mgustran/front-pfc">Terminos y condiciones</a>
+        </div>
+    </div>
+</footer>
+
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
+<script type="text/javascript" src="../js/script.js"></script>
+
+
+
+</body></html>
