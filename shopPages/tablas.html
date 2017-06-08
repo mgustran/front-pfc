@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="storeApp" class="ng-scope">
+<html ng-app="myApp" class="ng-scope">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Skeight - Tablas</title>
@@ -10,9 +10,10 @@
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="shortcut icon" href="../img/skeight_logo2.png" sizes="32x32" type="image/png">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 </head>
 
-<body id="home" onload="location.href='#tablas'">
+<body id="home">
 <div id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
@@ -56,16 +57,18 @@
     </div>
     <div class="container">
         <div id="tablas-container" class="row">
-            <article class="product col-xs-12 col-sm-6 col-md-3 ">
+
+            <!--<article class="product col-xs-12 col-sm-6 col-md-3 " ng-repeat="productItem in productsObj track by productItem.articleId">-->
+            <article class="product col-xs-12 col-sm-6 col-md-3 " ng-repeat="productItem in productsObj | filter:q as results">
                 <div class="img-box">
                     <div class="hover-mask2"></div>
                     <span class="product-icon icon-eye"></span>
-                    <img class="img-responsive project-image" src="../img/tablas.jpg" alt="">
+                    <img class="img-responsive project-image" src="{{productItem.img}}" alt="">
                 </div>
                 <div class="product-info col-md-12">
-                    <p class="project-price">$600</p>
+                    <p class="project-price">{{productItem.price}} </p>
                     <div>
-                        <h4 class="project-title ng-binding">Tablas</h4>
+                        <h4 class="project-title ng-binding">{{productItem.model}}</h4>
                     </div>
                 </div>
             </article>
@@ -88,13 +91,26 @@
 
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
-<script type="text/javascript" src="../js/script.js"></script>
 
-<script type="text/javascript">
-    function load()
-    {
-        window.location.hash="#tablas";
-    }
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('productsController', function($scope, $http) {
+//        var productsObj;
+        $http.get("http://localhost:8080/user/articles/tablas")
+            .then(function(response) {
+                $scope.product = response.data;
+                $scope.productsObj = angular.fromJson(response.data);
+                $scope.q = "";
+            });
+    });
+
+    $(function(){
+        $('html, body').animate({
+            scrollTop: $('#tablas').offset().top
+        }, 1000);
+        return false;
+    });
+
 </script>
 
 </body></html>

@@ -31,6 +31,15 @@
                 <li class="dropdown">
                     <button type="button" class="btn btn-default icon-cart dropdown-toggle" style="font-size: 20px"></button>
                 </li>
+                <li>
+                    <div id="wrap">
+                        <form action="shopPages/search.html" autocomplete="off">
+                            <input id="search" name="search" type="text" placeholder="Que Estas Buscando ?" required>
+                            <input id="search_submit" class="icon-cart2" value="Rechercher" type="submit">
+                        </form>
+                    </div>
+                </li>
+
 
             </ul>
         </div>
@@ -56,7 +65,7 @@
             <article class="product col-xs-12 col-sm-6 col-md-4 ">
                 <div class="img-box">
                     <div class="hover-mask2"></div>
-                    <span class="product-icon icon-eye"></span>
+                    <a class="product-icon icon-eye" href="shopPages/tablas.html"></a>
                     <img class="img-responsive project-image" src="img/tablas.jpg" alt="">
                 </div>
                 <div class="product-info col-md-12">
@@ -69,7 +78,7 @@
             <article class="product col-xs-12 col-sm-6 col-md-4 ">
                 <div class="img-box">
                     <div class="hover-mask2"></div>
-                    <span class="product-icon icon-eye"></span>
+                    <a class="product-icon icon-eye" href="shopPages/ejes.html"></a>
                     <img class="img-responsive project-image" src="img/ejes.jpg" alt="">
                 </div>
                 <div class="product-info col-md-12">
@@ -82,7 +91,7 @@
             <article class="product col-xs-12 col-sm-6 col-md-4 ">
                 <div class="img-box">
                     <div class="hover-mask2"></div>
-                    <span class="product-icon icon-eye"></span>
+                    <a class="product-icon icon-eye" href="shopPages/ruedas.html"></a>
                     <img class="img-responsive" src="img/ruedas.jpeg" alt="">
                 </div>
                 <div class="product-info col-md-12">
@@ -95,7 +104,7 @@
             <article class="product col-xs-12 col-sm-6 col-md-4 ">
                 <div class="img-box">
                     <div class="hover-mask2"></div>
-                    <span class="product-icon icon-eye"></span>
+                    <a class="product-icon icon-eye" href="shopPages/rodamientos.html"></a>
                     <img class="img-responsive" src="img/rodamientos.jpg" alt="">
                 </div>
                 <div class="product-info col-md-12">
@@ -108,7 +117,7 @@
             <article class="product col-xs-12 col-sm-6 col-md-4 ">
                 <div class="img-box">
                     <div class="hover-mask2"></div>
-                    <span class="product-icon icon-eye"></span>
+                    <a class="product-icon icon-eye" href="shopPages/accesorios.html"></a>
                     <img class="img-responsive" src="img/accesorios.png" alt="">
                 </div>
                 <div class="product-info col-md-12">
@@ -121,7 +130,7 @@
             <article class="product col-xs-12 col-sm-6 col-md-4 ">
                 <div class="img-box">
                     <div class="hover-mask2"></div>
-                    <span class="product-icon icon-eye"></span>
+                    <a class="product-icon icon-eye" href="shopPages/tcompletas.html"></a>
                     <img class="img-responsive" src="img/tablasCompletas.jpg" alt="">
                 </div>
                 <div class="product-info col-md-12">
@@ -191,30 +200,6 @@
         </div>
     </div>
 </footer>
-
-<div  ng-controller="productsController">
-
-    <p>Today's welcome message is:</p>
-    <h1>{{products}}</h1>
-
-</div>
-
-<script>
-    var app = angular.module('myApp', []);
-    app.controller('myCtrl', function($scope, $http) {
-        $http.get("http://localhost:8080/user/article/1")
-            .then(function(response) {
-                $scope.myWelcome = response.data;
-            });
-    });
-
-    app.controller('productsController', function($scope, $http) {
-        $http.get("http://localhost:8080/user/articles")
-            .then(function(response) {
-                $scope.products = response.data;
-            });
-    });
-</script>
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
 <script type="text/javascript" src="js/script.js"></script>

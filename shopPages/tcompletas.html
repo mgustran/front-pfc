@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="storeApp" class="ng-scope">
+<html ng-app="skeightApp" class="ng-scope">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Skeight - Tablas Completas</title>
@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="shortcut icon" href="../img/skeight_logo2.png" sizes="32x32" type="image/png">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+
 </head>
 
 <body id="home" onload="location.href='#tcompletas'">
@@ -51,21 +53,21 @@
 <section id="tcompletas" class="padding-top-bottom-first ng-scope gray-bg" ng-controller="productsController">
     <div class="container">
         <header class="section-header text-center">
-            <h2>Tablas</h2>
+            <h2>Tablas Completas</h2>
         </header>
     </div>
     <div class="container">
         <div id="tcompletas-container" class="row">
-            <article class="product col-xs-12 col-sm-6 col-md-3 ">
+            <article class="product col-xs-12 col-sm-6 col-md-3 " ng-repeat="productItem in productsObj | filter:q as results">
                 <div class="img-box">
                     <div class="hover-mask2"></div>
                     <span class="product-icon icon-eye"></span>
-                    <img class="img-responsive project-image" src="../img/tablasCompletas.jpg" alt="">
+                    <img class="img-responsive project-image" src="{{productItem.img}}" alt="">
                 </div>
                 <div class="product-info col-md-12">
-                    <p class="project-price">$600</p>
+                    <p class="project-price">{{productItem.price}} </p>
                     <div>
-                        <h4 class="project-title ng-binding">Tabla Completa</h4>
+                        <h4 class="project-title ng-binding">{{productItem.model}}</h4>
                     </div>
                 </div>
             </article>
@@ -86,9 +88,30 @@
     </div>
 </footer>
 
-
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
-<script type="text/javascript" src="../js/script.js"></script>
+
+<script>
+    var app = angular.module('skeightApp', []);
+    app.controller('productsController', function($scope, $http) {
+//        var productsObj;
+        $http.get("http://localhost:8080/user/articles/tablasCompletas")
+            .then(function(response) {
+                $scope.product = response.data;
+                $scope.productsObj = angular.fromJson(response.data);
+                $scope.q = "";
+            });
+    });
+
+    $(function(){
+        $('html, body').animate({
+            scrollTop: $('#tcompletas').offset().top
+        }, 1000);
+        return false;
+    });
+</script>
+
+
+
 
 
 </body></html>
