@@ -106,7 +106,6 @@ h3.center {
 .image-bg {
     overflow: hidden;
     background-size: cover;
-    background-image: url(../img/12.jpg);
     background-position: center 16%;
     position: relative
 }
