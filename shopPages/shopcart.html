@@ -81,7 +81,7 @@
                             <td class="vert-align">{{productItem.model}}    by  {{productItem.marca}}</td>
                             <td class="vert-align">{{productItem.category}}</td>
                             <td class="vert-align ng-binding">{{productItem.price | number : 2}} €</td>
-                            <td class=" ng-binding text-center">{{productItem.quantity}}</td>
+                            <td class=" text-center"><a ng-click="UpdateData(productItem.articleId.toString(), -1)">-</a>{{'  '}}{{productItem.quantity}}{{'  '}}<a ng-click="UpdateData(productItem.articleId, 1)">+</a></td>
                             <td class=" ng-binding text-center">X</td>
                             <td class="text-right vert-align ng-binding">{{productItem.price | number : 2}} €</td>
                         </tr>
@@ -97,20 +97,18 @@
 
                         <div class="container col-md-12">
                             <div >
-                                <label >Metodo de Pago</label>
                                 <div >
                                     <label>
-                                        <select class="form-control" data-ng-model="showccart">
-                                            <option disabled selected value>Seleccionar metdo</option>
-                                            <option value="true">Tarjeta de Credito</option>
-                                            <option value="false">PayPal</option>
-                                        </select>
+                                        <form class="form-control" >
+                                            <input  type="radio" data-ng-model="paymethod" data-ng-value="true">Tarjeta de Credito</input>
+                                            <input  type="radio" data-ng-model="paymethod" data-ng-value="false">PayPal</input>
+                                        </form>
                                     </label>
                                 </div>
                             </div>
                         </div>
 
-                        <div ng-if="showccart">
+                        <div ng-if="paymethod">
                             <div class="row">
                                 <div class="col-sm-8 col-md-8">
                                     <div class="form-group">
@@ -152,6 +150,18 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+
+                        <div ng-if="paymethod == false">
+                            <div>
+                                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                                    <input type="hidden" name="cmd" value="_s-xclick">
+                                    <input type="hidden" name="hosted_button_id" value="BDLH89KGBKWFE">
+                                    <input type="image" src="http://www.anerbarrena.com/wp-content/uploads/2015/07/PayPal.png" border="0" name="submit" alt="PayPal, la forma rápida y segura de pagar en Internet.">
+                                    <img alt="" border="0" src="https://www.paypalobjects.com/es_ES/i/scr/pixel.gif" width="1" height="1">
+                                </form>
+
                             </div>
                         </div>
 
@@ -228,26 +238,6 @@
     </div>
 </section>
 
-<section id="newsletter" class="light-typo dark-bg padding-top-bottom  transparent-bg">
-    <div class="container ">
-        <header class="section-header text-center">
-            <h2>Mantente en contacto con nosotros</h2>
-            <h4>Inscribete para recibir Noticias y Ofertas en tu E-Mail</h4>
-        </header>
-        <div class="row">
-            <form id="newsletter-form" action="ojooo" method="POST" class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1  ng-pristine ng-valid">
-                <div class="input-group">
-                    <input id="newsletter-mail" name="email" placeholder="Introduce tu e-mail" class="form-control input-lg" type="email">
-                    <span class="input-group-btn">
-								<button name="submit" type="submit" class="btn btn-store">Subscribir!</button>
-							</span>
-                </div>
-                <input type="hidden" name="submitted" id="submitted2" value="true">
-            </form>
-        </div>
-    </div>
-</section>
-
 <footer id="main-footer" class="dark-bg light-typo">
     <div class="container">
         <p class="pull-left copyright">© Skeight 2017. <br> Designed by <a href="https://github.com/mgustran" target="_blank">Miquel Gustran</a>.<br>
@@ -261,11 +251,13 @@
 
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
+<script type="text/javascript" src="../js/lodash.js"></script>
+
 
 <script type="text/javascript">
 
     var app = angular.module('skeightApp', []);
-    app.controller('productsController', function($scope, $http) {
+    app.controller('productsController', function($scope, $http, $location, $sce) {
 
 //        $scope.showccart = false;
         $scope.totalPrice = 0;

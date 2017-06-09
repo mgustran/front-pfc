@@ -127,6 +127,24 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
 
 <script type="text/javascript">
+    var app = angular.module('skeightApp', []);
+    app.controller('productsController', function($scope, $http) {
+//        var productsObj;
+        $http.get("http://localhost:8080/data/articles")
+            .then(function(response) {
+                $scope.productsObj = angular.fromJson(response.data);
+                $scope.q = "";
+            });
+
+        $http.get("http://localhost:8080/cart/articles")
+            .then(function(response) {
+                $scope.product = response.data;
+                $scope.cartProducts = angular.fromJson(response.data);
+                $scope.cartNum = $scope.cartProducts.length;
+            });
+    });
+
+
     $(function(){
         $('html, body').animate({
             scrollTop: $('#contacto').offset().top
