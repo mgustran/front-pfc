@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="shortcut icon" href="../img/skeight_logo2.png" sizes="32x32" type="image/png">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="../js/angular.min.js"></script>
 </head>
 
 <body id="home" >
@@ -118,7 +118,8 @@
 </footer>
 
 
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
+<script type="text/javascript" src="../js/jquery-latest.pack.js"></script>
+<script type="text/javascript" src="../js/lodash.js"></script>
 
 <script>
     var app = angular.module('skeightApp', []);
@@ -151,24 +152,44 @@
 
             $scope.SendData = function () {
                 // use $.param jQuery function to serialize data from JSON
-
+////                if(_.findKey($scope.cartProducts, ['model', $scope.product.model]).equals($scope.))
+//
                 var config = {
                     headers : {
                         'Content-Type': 'application/json'
                     }
                 };
 
-                $http.post('http://localhost:8080/cart/article', $scope.dataObj, config)
-                    .success(function (data, status, headers, config) {
-                        $scope.PostDataResponse = data;
-                    })
-                    .error(function (data, status, header, config) {
-                        $scope.ResponseDetails = "Data: " + data +
-                            "<hr />status: " + status +
-                            "<hr />headers: " + header +
-                            "<hr />config: " + config;
-                    });
-            }
+                $scope.matchingProducts = _.filter($scope.cartProducts, ['model', $scope.product.model]);
+                if ($scope.matchingProducts.length > 0) {
+                    $scope.dataObj.quantity += 1;
+                    $scope.dataObj.articleId = $scope.matchingProducts[0].articleId;
+
+                    $http.put('http://localhost:8080/cart/article', $scope.dataObj, config)
+                        .success(function (data, status, headers) {
+                            $scope.ServerResponse = data;
+                        })
+                        .error(function (data, status, header, config) {
+                            $scope.ServerResponse =  htmlDecode("Data: " + data +
+                                "\n\n\n\nstatus: " + status +
+                                "\n\n\n\nheaders: " + header +
+                                "\n\n\n\nconfig: " + config);
+                        });
+
+                } else {
+
+                    $http.post('http://localhost:8080/cart/article', $scope.dataObj, config)
+                        .success(function (data, status, headers, config) {
+                            $scope.PostDataResponse = data;
+                        })
+                        .error(function (data, status, header, config) {
+                            $scope.ResponseDetails = "Data: " + data +
+                                "<hr />status: " + status +
+                                "<hr />headers: " + header +
+                                "<hr />config: " + config;
+                        });
+                }
+            };
 
         $( "#buy" ).click(function() {
             location.reload();

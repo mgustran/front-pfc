@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="shortcut icon" href="../img/skeight_logo2.png" sizes="32x32" type="image/png">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="../js/angular.min.js"></script>
 
 </head>
 
@@ -68,10 +68,11 @@
                             <th class="col-md-4">Producto</th>
                             <th class="col-md-2">Tipo</th>
                             <th class="col-md-2">Precio</th>
-                            <th class="text-center col-md-2">
+                            <th class="text-center col-md-1">
                                 <span class="hidden-xs">Quantity</span>
                                 <span class="visible-xs">QNT</span>
                             </th>
+                            <th class="text-center col-md-1">Eliminar</th>
                             <th class="text-right col-md-2">Total</th>
                         </tr>
                         </thead>
@@ -81,6 +82,7 @@
                             <td class="vert-align">{{productItem.category}}</td>
                             <td class="vert-align ng-binding">{{productItem.price | number : 2}} €</td>
                             <td class=" ng-binding text-center">{{productItem.quantity}}</td>
+                            <td class=" ng-binding text-center">X</td>
                             <td class="text-right vert-align ng-binding">{{productItem.price | number : 2}} €</td>
                         </tr>
                         <br>
