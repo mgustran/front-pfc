@@ -56,9 +56,13 @@
 
 <section id="products" class="padding-top-bottom ng-scope">
     <div class="container">
-        <header class="section-header text-centerf">
-            <h2>Categorias</h2>
+        <header class="row image-logo text-center">
+            <img src="img/skeight_logo4.png" alt="logo">
+            <img src="img/skeight_logo3.png" alt="logo">
         </header>
+        <div class="section-header text-centerf">
+            <h2>Categorias</h2>
+        </div>
     </div>
     <div class="container">
         <div id="projects-container" class="row">
@@ -221,6 +225,13 @@
                 $scope.cartProducts = angular.fromJson(response.data);
                 $scope.cartNum = $scope.cartProducts.length;
             });
+    });
+
+    $(function(){
+        $('html, body').animate({
+            scrollTop: $('#products').offset().top - 200
+        }, 1000);
+        return false;
     });
 
 </script>

@@ -1260,6 +1260,20 @@ form p {
     padding: 90px 0 0 0
 }
 
+#filters {
+    padding-left: 25%;
+    padding-right: 25%;
+    padding-bottom: 8px;
+    padding-top: 15px;
+    color: deepskyblue;
+    margin-bottom: 50px;
+}
+
+#filters-title {
+    padding: 18px 0;
+    margin-bottom: auto;
+}
+
 
 /*       SEARCH BOX       */
 
@@ -1330,6 +1344,16 @@ input[type="submit"]:hover {
     opacity: 0.8;
 }
 
+
+/*     HOME        */
+
+.image-logo {
+    display: inline-block;
+    position: absolute;
+    /* padding-bottom: 0px; */
+    text-align: center;
+    margin-top: -260px;
+}
 
 
 /*     COMMONS    */

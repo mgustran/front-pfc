@@ -79,59 +79,80 @@
                         <tr ng-repeat="productItem in productsObj">
                             <td class="vert-align">{{productItem.model}}    by  {{productItem.marca}}</td>
                             <td class="vert-align">{{productItem.category}}</td>
-                            <td class="vert-align ng-binding">{{productItem.price}}</td>
+                            <td class="vert-align ng-binding">{{productItem.price | number : 2}} €</td>
                             <td class=" ng-binding text-center">{{productItem.quantity}}</td>
-                            <td class="text-right vert-align ng-binding">{{productItem.price}}</td>
+                            <td class="text-right vert-align ng-binding">{{productItem.price | number : 2}} €</td>
                         </tr>
                         <br>
                         </tbody>
                     </table>
                 </div>
+
+
                 <div class="container padding-top-bottom-medium">
                     <div class="col-sm-6 col-md-6 contact-info">
                         <p class="text-center"><strong>Metodo de Pago</strong></p>
-                        <div class="row">
-                            <div class="col-sm-8 col-md-8">
-                                <div class="form-group">
-                                    <label class="control-label">Name</label>
-                                    <input name="numeroTarjeta" placeholder="Numero de Tarjeta" class="form-control input-lg" type="text">
-                                </div>
-                            </div>
-                            <div class="col-sm-4 col-md-4">
-                                <div class="form-group">
-                                    <label class="control-label">Code</label>
-                                    <input name="cvc" placeholder="CVC" class="form-control input-lg" type="text">
+
+                        <div class="container col-md-12">
+                            <div >
+                                <label >Metodo de Pago</label>
+                                <div >
+                                    <label>
+                                        <select class="form-control" data-ng-model="showccart">
+                                            <option disabled selected value>Seleccionar metdo</option>
+                                            <option value="true">Tarjeta de Credito</option>
+                                            <option value="false">PayPal</option>
+                                        </select>
+                                    </label>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label" for="contact-mail">month</label>
-                                    <div class=" controls">
-                                        <select class="form-control">
-                                            <option value="January">Enero</option>
-                                            <option value="February">Febrero</option>
-                                            <option value="March">Marzo</option>
-                                        </select>
+
+                        <div ng-if="showccart">
+                            <div class="row">
+                                <div class="col-sm-8 col-md-8">
+                                    <div class="form-group">
+                                        <label class="control-label">Name</label>
+                                        <input name="numeroTarjeta" placeholder="Numero de Tarjeta" class="form-control input-lg" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Code</label>
+                                        <input name="cvc" placeholder="CVC" class="form-control input-lg" type="text">
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label" for="contact-mail">year</label>
-                                    <div class=" controls">
-                                        <select class="form-control">
-                                            <option value="2014">2014</option>
-                                            <option value="2015">2015</option>
-                                            <option value="2016">2016</option>
-                                            <option value="2017">2017</option>
-                                            <option value="2018">2018</option>
-                                        </select>
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="contact-mail">month</label>
+                                        <div class=" controls">
+                                            <select class="form-control">
+                                                <option value="January">Enero</option>
+                                                <option value="February">Febrero</option>
+                                                <option value="March">Marzo</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="contact-mail">year</label>
+                                        <div class=" controls">
+                                            <select class="form-control">
+                                                <option value="2014">2014</option>
+                                                <option value="2015">2015</option>
+                                                <option value="2016">2016</option>
+                                                <option value="2017">2017</option>
+                                                <option value="2018">2018</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
 
                         <p class="text-center"><strong>Información</strong></p>
                         <div class="row">
@@ -187,7 +208,7 @@
                             <tr>
                                 <td>Total:</td>
                                 <td></td>
-                                <td id="total" class="text-right ng-binding">0.00 €</td>
+                                <td id="total" class="text-right">{{totalPrice | number: 2}} €</td>
                             </tr>
                             </tbody>
                         </table>
@@ -243,6 +264,10 @@
 
     var app = angular.module('skeightApp', []);
     app.controller('productsController', function($scope, $http) {
+
+//        $scope.showccart = false;
+        $scope.totalPrice = 0;
+
         $http.get("http://localhost:8080/cart/articles")
             .then(function(response) {
                 $scope.productsObj = angular.fromJson(response.data);

@@ -64,7 +64,7 @@
                         <img class="img-responsive project-image" src="{{product.img}}" alt="">
                     </div>
                     <div class="product-info product-info-detail col-md-12">
-                        <p class="product-detail-price">{{product.price}} </p>
+                        <p class="product-detail-price">{{product.price | number: 2}} €</p>
                         <div>
                             <h4 class="project-title ng-binding">{{product.discount}} discount</h4>
                         </div>

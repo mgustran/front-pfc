@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="shortcut icon" href="../img/skeight_logo2.png" sizes="32x32" type="image/png">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-
 </head>
 
 <body id="home">
@@ -58,7 +57,6 @@
 								<button name="submit" type="submit" class="btn btn-store">Buscar</button>
 							</span>
                 </div>
-                <!--<input type="hidden" name="submitted" id="submitted2" value="true">-->
             </form>
         </div>
     </div>
@@ -71,6 +69,62 @@
         </header>
     </div>
 
+    <div id="filters" class="container col-md-12 text-center dark-bg">
+
+
+        <div class="row">
+
+            <p id="filters-title" class="col-md-3"><strong>Filtros</strong></p>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="control-label">Precio</label>
+                    <div class=" controls">
+                        <label>
+                            <select class="form-control" data-ng-model="filtersA">
+                                <option disabled selected value>Filtrar Precio</option>
+                                <option value="price">Precio Ascendente</option>
+                                <option value="-price">Precio Descendente</option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="control-label">Modelo</label>
+                    <div class=" controls">
+                        <label>
+                            <select class="form-control" data-ng-model="filtersA">
+                                <option disabled selected value>Filtrar Modelo</option>
+                                <option value="model">Modelo A --> Z</option>
+                                <option value="-model">Modelo Z --> A</option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="control-label">Marca</label>
+                    <div class=" controls">
+                        <label>
+                            <select class="form-control" data-ng-model="filtersA">
+                                <option disabled selected value>Filtrar Marca</option>
+                                <option value="marca">Marca A --> Z</option>
+                                <option value="-marca">Marca Z --> A</option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
     <div class="container" ng-if="results.length == 0">
         <header class="section-header text-center">
             <h4>No hay resultados para tu busqueda, prueba otra cosa</h4>
@@ -80,14 +134,14 @@
     <div class="container">
         <div id="resultados-container" class="row">
 
-            <article class="product col-xs-12 col-sm-6 col-md-3 " ng-repeat="productItem in productsObj | filter:search as results">
+            <article class="product col-xs-12 col-sm-6 col-md-3 " ng-repeat="productItem in productsObj | filter:search | orderBy: filtersA ">
                 <div class="img-box">
                     <div class="hover-mask2"></div>
                     <a class="product-icon icon-eye" href="productdetail.html?{{productItem.articleId}}" ></a>
                     <img class="img-responsive project-image" src="{{productItem.img}}" alt="">
                 </div>
                 <div class="product-info col-md-12">
-                    <p class="project-price">{{productItem.price}} </p>
+                    <p class="project-price">{{productItem.price | number : 2}} € </p>
                     <div>
                         <h4 class="project-title ng-binding">{{productItem.model}}</h4>
                         <h4 class="project-title ng-binding"><a href="search.html?search={{productItem.marca}}#">   by <strong>  {{productItem.marca}}</strong></a></h4>
@@ -119,6 +173,7 @@
 //        var productsObj;
         $scope.parameters = $location.search('search');
         $scope.search = '';
+//        $scope.filtersA = 'price';
         var urlString = $scope.parameters.$$absUrl;
         $scope.isSubmit = urlString.includes("submit");
         $scope.notInBlank = urlString.includes("=");

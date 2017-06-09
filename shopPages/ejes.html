@@ -72,7 +72,7 @@
                     <img class="img-responsive project-image" src="{{productItem.img}}" alt="">
                 </div>
                 <div class="product-info col-md-12">
-                    <p class="project-price">{{productItem.price}} </p>
+                    <p class="project-price">{{productItem.price | number : 2}} € </p>
                     <div>
                         <h4 class="project-title ng-binding">{{productItem.model}}</h4>
                         <h4 class="project-title ng-binding"><a href="search.html?search={{productItem.marca}}#">   by <strong>  {{productItem.marca}}</strong></a></h4>
