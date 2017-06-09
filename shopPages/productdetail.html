@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html ng-app="skeightApp" class="ng-scope" ng-controller="productsController">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>{{product.model}} by {{product.marca}} - Skeight</title>
+
+    <meta name="description" content="Skeight - The Definitive WebShop And Spot Finder">
+    <meta name="author" content="mgustran@github.com">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="shortcut icon" href="../img/skeight_logo2.png" sizes="32x32" type="image/png">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+</head>
+
+<body id="home" >
+<div id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand active" href="../home.html">
+                <img id="navlogo" src="../img/Skeight.jpg" alt="microstore" width="122" height="45">
+            </a>
+
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul id="navigation" class="nav navbar-nav navbar-right text-center">
+                <li><a href="tablas.html" class="">Tablas</a></li>
+                <li><a href="ejes.html">Ejes</a></li>
+                <li><a href="ruedas.html">Ruedas</a></li>
+                <li><a href="rodamientos.html">Rodamientos</a></li>
+                <li><a href="accesorios.html">Accesorios</a></li>
+                <li><a href="tcompletas.html">Tablas Completas</a></li>
+                <li>
+                    <a id="cart-btn" type="button" class="cart-btn btn btn-default icon-cart dropdown-toggle" href="shopcart.html" style="font-size: 20px">{{"  "}}{{cartNum}}</a>
+                </li>
+                <li>
+                    <div id="wrap">
+                        <form action="search.html" autocomplete="off">
+                            <input type="submit">
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+<div id="hero" class="" data-height="600" style="height: 581px;">
+    <img class="img-responsive" src="../img/detailWall.jpg" alt="wall">
+</div>
+
+
+
+<section id="product-detail" class="padding-top-bottom ">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <article class="">
+                    <div class="img-box">
+                        <img class="img-responsive project-image" src="{{product.img}}" alt="">
+                    </div>
+                    <div class="product-info product-info-detail col-md-12">
+                        <p class="product-detail-price">{{product.price}} </p>
+                        <div>
+                            <h4 class="project-title ng-binding">{{product.discount}} discount</h4>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col-md-6 cta-message">
+                <header class="">
+                    <div class="col-md-6">
+                        <h2>{{product.model}}</h2>
+                        <h3> by <a href="search.html?search={{product.marca}}#"><strong> {{product.marca}}</strong></a></h3>
+                        <br>
+                        <br>
+                        <h3>Talla : {{product.talla}}</h3>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-4 text-center">
+                            <a class="btn btn-store btn-order" id="buy" href="#" ng-click="SendData()">Comprar</a>
+                        </div>
+                    </div>
+
+                </header>
+
+                <div class="description">
+                    <br>
+                    <br>
+                    <p>{{product.description}}</p>
+                    <p  id="read-more" class="read-more-hidden">Phasellus porta eros vel lacus euismod consequat. Phasellus eleifend, nibh non feugiat hendrerit,
+                        lacus enim adipiscing eros, a pharetra erat neque eget est. Quisque vitae aliquet urna. Integer suscipit lectus eu enim porttitor fringilla.
+                        Ut blandit, urna in auctor euismod, arcu eros pharetra metus, a porta purus libero a nibh.Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Nam sapien risus, blandit at fringilla ac, varius sed dolor. Donec augue lacus, vulputate sed consectetur facilisis, interdum pharetra ligula.
+                        Nulla suscipit erat nibh, ut porttitor nisl dapibus eu.</p>
+                    <a class="btn btn-store outline" id="show-btn" ng-click="openDescription">Mas...</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<footer id="main-footer" class="dark-bg light-typo">
+    <div class="container">
+        <p class="pull-left copyright">© Skeight 2017. <br> Designed by <a href="https://github.com/mgustran" target="_blank">Miquel Gustran</a>.<br>
+        </p>
+
+        <div class="pull-right paymentMethodImg copyright">
+            <a class="btn btn-store outline" href="https://github.com/mgustran/front-pfc">Terminos y condiciones</a>
+        </div>
+    </div>
+</footer>
+
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
+
+<script>
+    var app = angular.module('skeightApp', []);
+    app.controller('productsController', function($scope, $http, $location) {
+//        var productsObj;
+        $scope.parameters = $location.search("");
+        $scope.openD = false;
+        var url = $scope.parameters.$$absUrl;
+        $scope.id = url.substring(url.indexOf('?') + 1);
+
+        $http.get("http://localhost:8080/data/article/" + $scope.id)
+            .then(function(response) {
+                $scope.dataObj = response.data;
+//                $scope.dataToPost =
+//                angular.uns
+                delete $scope.dataObj.articleId;
+                $scope.dataObj.quantity = 1;
+                $scope.product = angular.fromJson(response.data);
+                $scope.q = "";
+
+            });
+
+        $http.get("http://localhost:8080/cart/articles")
+            .then(function(response) {
+                $scope.products = response.data;
+                $scope.cartProducts = angular.fromJson(response.data);
+                $scope.cartNum = $scope.cartProducts.length;
+            });
+
+
+            $scope.SendData = function () {
+                // use $.param jQuery function to serialize data from JSON
+
+                var config = {
+                    headers : {
+                        'Content-Type': 'application/json'
+                    }
+                };
+
+                $http.post('http://localhost:8080/cart/article', $scope.dataObj, config)
+                    .success(function (data, status, headers, config) {
+                        $scope.PostDataResponse = data;
+                    })
+                    .error(function (data, status, header, config) {
+                        $scope.ResponseDetails = "Data: " + data +
+                            "<hr />status: " + status +
+                            "<hr />headers: " + header +
+                            "<hr />config: " + config;
+                    });
+            }
+
+        $( "#buy" ).click(function() {
+            location.reload();
+
+        });
+
+
+        $( "#show-btn" ).click(function() {
+            if($scope.openD) {
+                $("#read-more").css({
+                    "height":"0",
+                    "display":"inline-block",
+                }).show().animate({height:150})
+            } else {
+                $("#read-more").css({
+                    "height":"0",
+                    "display":"inline-block",
+                }).hide().animate({height:125})
+            }
+            $scope.openD = !$scope.openD;
+        });
+    });
+
+    $(function(){
+        $('html, body').animate({
+            scrollTop: $('#product-detail').offset().top
+        }, 1000);
+        return false;
+    });
+
+</script>
+
+</body></html>

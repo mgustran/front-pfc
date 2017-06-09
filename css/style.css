@@ -96,8 +96,10 @@ h3.center {
 .section-header h2 {
     margin-top: 0;
     margin-bottom: 3px;
-    font-weight: 600
+    font-weight: 600;
+    text-align: center;
 }
+
 
 .section-header h4 {
     margin-top: 0
@@ -536,7 +538,11 @@ address {
     font-weight: 400;
     vertical-align: top;
     border: 2px solid #FFF;
-    box-shadow: none
+    box-shadow: none;
+    font-weight: 400;
+    position: relative;
+    width: 100%;
+    max-width: 100%;
 }
 
 .special {
@@ -900,6 +906,10 @@ form p {
     h2 {
         font-size: 26px
     }
+
+    #hero img {
+        height: 80%;
+    }
 }
 
 @media (max-width: 768px) {
@@ -953,6 +963,10 @@ form p {
 @media (min-width: 1200px) {
     .modal-header {
         height: 650px
+    }
+
+    #hero img {
+        height: 150%;
     }
 }
 
@@ -1194,6 +1208,48 @@ form p {
     background-color: transparent
 }
 
+.cart-btn {
+
+    font-size: 20px;
+    padding: 15px 15px 15px 15px;
+}
+
+/*        PRODUCT DETAIL PAGE      */
+
+#read-more {
+    /*transition: height 1s ease-out;*/
+
+}
+
+.description {
+    width: 100%;
+    float: left;
+    position: relative;
+}
+
+.btn-order {
+    margin: 80px 0 15px 0;
+    font-size: 23px;
+    background: #0048ff;
+    font-weight: 900;
+}
+
+.product-detail-price {
+    position: relative;
+    float: right;
+    font-weight: 600;
+    font-size: 25px;
+    margin: 0
+}
+
+.read-more-hidden {
+    display: none;
+}
+
+.read-more-active {
+    display: inline-block;
+}
+
 /*       SEARCH PAGE      */
 
 #search-page-form {
@@ -1278,6 +1334,12 @@ input[type="submit"]:hover {
 
 /*     COMMONS    */
 
+.active-page-navbar {
+    color: deepskyblue!important;
+    font-size: 20px;
+    font-weight: 900;
+}
+
 .section-header {
     margin-bottom: 40px
 }
@@ -1323,6 +1385,10 @@ input[type="submit"]:hover {
     padding: 10px 5px 0 5px;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px
+}
+
+.product-info-detail {
+    font-size: larger;
 }
 
 .product-info div h4 {

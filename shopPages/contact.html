@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="storeApp" class="ng-scope">
+<html ng-app="skeightApp" class="ng-scope" ng-controller="productsController">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Skeight - Contacto</title>
@@ -27,10 +27,10 @@
             <ul id="navigation" class="nav navbar-nav navbar-right text-center">
                 <li><a href="../shopPages/shop.html" class="">Tienda</a></li>
                 <li><a href="../spotPages/#">Mapa</a></li>
-                <li><a href="../shopPages/contact.html">Contacto</a></li>
+                <li><a href="../shopPages/contact.html" class="active-page-navbar">Contacto</a></li>
 
-                <li class="dropdown">
-                    <button type="button" class="btn btn-default icon-cart dropdown-toggle" style="font-size: 20px"></button>
+                <li>
+                    <a type="button" class="cart-btn btn btn-default icon-cart dropdown-toggle" style="font-size: 20px" href="shopcart.html">{{"  "}} {{cartNum}}</a>
                 </li>
 
             </ul>

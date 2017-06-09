@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="skeightApp" class="ng-scope">
+<html ng-app="skeightApp" class="ng-scope" ng-controller="productsController">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Skeight - Accesorios</title>
@@ -32,12 +32,18 @@
                 <li><a href="ejes.html">Ejes</a></li>
                 <li><a href="ruedas.html">Ruedas</a></li>
                 <li><a href="rodamientos.html">Rodamientos</a></li>
-                <li><a href="accesorios.html">Accesorios</a></li>
+                <li><a href="accesorios.html" class="active-page-navbar">Accesorios</a></li>
                 <li><a href="tcompletas.html">Tablas Completas</a></li>
-                <li class="dropdown">
-                    <button type="button" class="btn btn-default dropdown-toggle icon-cart" data-toggle="dropdown"></button>
+                <li>
+                    <a type="button" class="cart-btn btn btn-default icon-cart dropdown-toggle" href="shopcart.html" style="font-size: 20px">{{"  "}} {{cartNum}}</a>
                 </li>
-
+                <li>
+                    <div id="wrap">
+                        <form action="search.html" autocomplete="off">
+                            <input type="submit">
+                        </form>
+                    </div>
+                </li>
             </ul>
         </div>
 
@@ -50,7 +56,7 @@
 
 
 
-<section id="accesorios" class="padding-top-bottom-first ng-scope gray-bg" ng-controller="productsController">
+<section id="accesorios" class="padding-top-bottom-first ng-scope gray-bg">
     <div class="container">
         <header class="section-header text-center">
             <h2>Accesorios</h2>
@@ -61,13 +67,14 @@
             <article class="product col-xs-12 col-sm-6 col-md-3 " ng-repeat="productItem in productsObj | filter:q as results">
                 <div class="img-box">
                     <div class="hover-mask2"></div>
-                    <span class="product-icon icon-eye"></span>
+                    <a class="product-icon icon-eye" href="productdetail.html?{{productItem.articleId}}" ></a>
                     <img class="img-responsive project-image" src="{{productItem.img}}" alt="">
                 </div>
                 <div class="product-info col-md-12">
                     <p class="project-price">{{productItem.price}} </p>
                     <div>
                         <h4 class="project-title ng-binding">{{productItem.model}}</h4>
+                        <h4 class="project-title ng-binding"><a href="search.html?search={{productItem.marca}}#">   by <strong>  {{productItem.marca}}</strong></a></h4>
                     </div>
                 </div>
             </article>
@@ -96,11 +103,17 @@ button-shop
     var app = angular.module('skeightApp', []);
     app.controller('productsController', function($scope, $http) {
 //        var productsObj;
-        $http.get("http://localhost:8080/user/articles/accesorios")
+        $http.get("http://localhost:8080/data/articles/accesorios")
             .then(function(response) {
-                $scope.product = response.data;
                 $scope.productsObj = angular.fromJson(response.data);
                 $scope.q = "";
+            });
+
+        $http.get("http://localhost:8080/cart/articles")
+            .then(function(response) {
+                $scope.product = response.data;
+                $scope.cartProducts = angular.fromJson(response.data);
+                $scope.cartNum = $scope.cartProducts.length;
             });
     });
 

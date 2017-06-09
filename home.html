@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="myApp" class="ng-scope">
+<html ng-app="skeightApp" class="ng-scope" ng-controller="productsController">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Skeight - More Than Skates</title>
@@ -28,8 +28,8 @@
                 <li><a href="spotPages/#">Mapa</a></li>
                 <li><a href="shopPages/contact.html">Contacto</a></li>
 
-                <li class="dropdown">
-                    <button type="button" class="btn btn-default icon-cart dropdown-toggle" style="font-size: 20px"></button>
+                <li class="">
+                    <a type="button" class="cart-btn btn btn-default icon-cart dropdown-toggle" href="shopPages/shopcart.html" style="font-size: 20px">{{"  "}} {{cartNum}}</a>
                 </li>
                 <li>
                     <div id="wrap">
@@ -54,7 +54,7 @@
 
 
 
-<section id="products" ng-controller="productsController" class="padding-top-bottom ng-scope">
+<section id="products" class="padding-top-bottom ng-scope">
     <div class="container">
         <header class="section-header text-centerf">
             <h2>Categorias</h2>
@@ -203,5 +203,26 @@
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
 <script type="text/javascript" src="js/script.js"></script>
+
+
+<script>
+    var app = angular.module('skeightApp', []);
+    app.controller('productsController', function($scope, $http) {
+//        var productsObj;
+        $http.get("http://localhost:8080/data/articles/accesorios")
+            .then(function(response) {
+                $scope.productsObj = angular.fromJson(response.data);
+                $scope.q = "";
+            });
+
+        $http.get("http://localhost:8080/cart/articles")
+            .then(function(response) {
+                $scope.product = response.data;
+                $scope.cartProducts = angular.fromJson(response.data);
+                $scope.cartNum = $scope.cartProducts.length;
+            });
+    });
+
+</script>
 
 </body></html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html ng-app="skeightApp" class="ng-scope" ng-controller="productsController">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Skeight - Carrito</title>
+
+    <meta name="description" content="Skeight - The Definitive WebShop And Spot Finder">
+    <meta name="author" content="mgustran@github.com">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="shortcut icon" href="../img/skeight_logo2.png" sizes="32x32" type="image/png">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+
+</head>
+
+<body id="home">
+<div id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand active" href="../home.html">
+                <img id="navlogo" src="../img/Skeight.jpg" alt="" width="122" height="45">
+            </a>
+
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul id="navigation" class="nav navbar-nav navbar-right text-center">
+                <li><a href="../shopPages/shop.html" class="">Tienda</a></li>
+                <li><a href="../spotPages/#">Mapa</a></li>
+                <li><a href="../shopPages/contact.html">Contacto</a></li>
+
+                <li>
+                    <a type="button" class="cart-btn btn btn-default icon-cart dropdown-toggle" style="font-size: 20px">{{"  "}} {{cartNum}}</a>
+                </li>
+                <li>
+                    <div id="wrap">
+                        <form action="search.html" autocomplete="off">
+                            <input id="search" name="search" type="text" placeholder="Que Estas Buscando ?" required>
+                            <input id="search_submit" class="icon-cart2" value="Rechercher" type="submit">
+                        </form>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+
+<div id="hero" class="" data-height="600" style="height: 581px;">
+    <img class="" src="../img/cartWall.jpg" alt="wall">
+</div>
+
+
+
+<section id="cart" class="gray-bg padding-top-bottom ng-scope" >
+    <div class="container">
+        <header class="section-header text-center">
+            <h2>Carrito</h2>
+        </header>
+        <form action="index.html" method="post" novalidate="" id="order-form" class="ng-pristine ng-valid">
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th class="col-md-4">Producto</th>
+                            <th class="col-md-2">Tipo</th>
+                            <th class="col-md-2">Precio</th>
+                            <th class="text-center col-md-2">
+                                <span class="hidden-xs">Quantity</span>
+                                <span class="visible-xs">QNT</span>
+                            </th>
+                            <th class="text-right col-md-2">Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="productItem in productsObj">
+                            <td class="vert-align">{{productItem.model}}    by  {{productItem.marca}}</td>
+                            <td class="vert-align">{{productItem.category}}</td>
+                            <td class="vert-align ng-binding">{{productItem.price}}</td>
+                            <td class=" ng-binding text-center">{{productItem.quantity}}</td>
+                            <td class="text-right vert-align ng-binding">{{productItem.price}}</td>
+                        </tr>
+                        <br>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="container padding-top-bottom-medium">
+                    <div class="col-sm-6 col-md-6 contact-info">
+                        <p class="text-center"><strong>Metodo de Pago</strong></p>
+                        <div class="row">
+                            <div class="col-sm-8 col-md-8">
+                                <div class="form-group">
+                                    <label class="control-label">Name</label>
+                                    <input name="numeroTarjeta" placeholder="Numero de Tarjeta" class="form-control input-lg" type="text">
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Code</label>
+                                    <input name="cvc" placeholder="CVC" class="form-control input-lg" type="text">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="contact-mail">month</label>
+                                    <div class=" controls">
+                                        <select class="form-control">
+                                            <option value="January">Enero</option>
+                                            <option value="February">Febrero</option>
+                                            <option value="March">Marzo</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="contact-mail">year</label>
+                                    <div class=" controls">
+                                        <select class="form-control">
+                                            <option value="2014">2014</option>
+                                            <option value="2015">2015</option>
+                                            <option value="2016">2016</option>
+                                            <option value="2017">2017</option>
+                                            <option value="2018">2018</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="text-center"><strong>Información</strong></p>
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input name="name" placeholder="Nombre" class="form-control input-lg" type="text">
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <input name="lastName" placeholder="Segundo Nombre" class="form-control input-lg" type="text">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Email</label>
+                            <input name="email" placeholder="Tu email" class="form-control input-lg" type="email">
+                        </div>
+
+                    </div>
+
+                    <div class="col-sm-6 col-md-6">
+                        <p class="text-center"><strong>Dirección de Envio</strong></p>
+                        <div class="form-group">
+                            <label class="control-label">Calle</label>
+                            <input name="street" placeholder="Calle" class="form-control" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">City</label>
+                            <input name="city" placeholder="Ciudad/Población" class="form-control" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Country</label>
+                            <input name="country" placeholder="Pais" class="form-control" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">postcode</label>
+                            <input name="postcode" placeholder="Codigo Postal" class="form-control" type="text">
+                        </div>
+
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th colspan="3" class="text-center">Resumen del Pedido</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Coste de Envio:</td>
+                                <td></td>
+                                <td class="text-right">Gartis</td>
+                            </tr>
+                            <tr>
+                                <td>Total:</td>
+                                <td></td>
+                                <td id="total" class="text-right ng-binding">0.00 €</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <p>
+                            <button name="submit" type="submit" class="btn btn-store btn-block">Realizar Pedido</button>
+                        </p>
+                        <input type="hidden" name="submitted" id="submitted" value="true">
+                    </div>
+                </div>
+
+
+            </div>
+        </form>
+
+    </div>
+</section>
+
+<section id="newsletter" class="light-typo dark-bg padding-top-bottom  transparent-bg">
+    <div class="container ">
+        <header class="section-header text-center">
+            <h2>Mantente en contacto con nosotros</h2>
+            <h4>Inscribete para recibir Noticias y Ofertas en tu E-Mail</h4>
+        </header>
+        <div class="row">
+            <form id="newsletter-form" action="ojooo" method="POST" class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1  ng-pristine ng-valid">
+                <div class="input-group">
+                    <input id="newsletter-mail" name="email" placeholder="Introduce tu e-mail" class="form-control input-lg" type="email">
+                    <span class="input-group-btn">
+								<button name="submit" type="submit" class="btn btn-store">Subscribir!</button>
+							</span>
+                </div>
+                <input type="hidden" name="submitted" id="submitted2" value="true">
+            </form>
+        </div>
+    </div>
+</section>
+
+<footer id="main-footer" class="dark-bg light-typo">
+    <div class="container">
+        <p class="pull-left copyright">© Skeight 2017. <br> Designed by <a href="https://github.com/mgustran" target="_blank">Miquel Gustran</a>.<br>
+        </p>
+
+        <div class="pull-right paymentMethodImg copyright">
+            <a class="btn btn-store outline" href="https://github.com/mgustran/front-pfc">Terminos y condiciones</a>
+        </div>
+    </div>
+</footer>
+
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
+
+<script type="text/javascript">
+
+    var app = angular.module('skeightApp', []);
+    app.controller('productsController', function($scope, $http) {
+        $http.get("http://localhost:8080/cart/articles")
+            .then(function(response) {
+                $scope.productsObj = angular.fromJson(response.data);
+                $scope.q = "";
+                $scope.cartNum = $scope.productsObj.length;
+            });
+    });
+
+    $(function(){
+        $('html, body').animate({
+            scrollTop: $('#cart').offset().top
+        }, 1000);
+        return false;
+    });
+</script>
+
+</body></html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="myApp" class="ng-scope">
+<html ng-app="myApp" class="ng-scope" ng-controller="productsController">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Skeight - Shop</title>
@@ -14,7 +14,7 @@
 
 </head>
 
-<body id="home" ng-controller="productsController">
+<body id="home">
 <div id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
@@ -34,8 +34,8 @@
                 <li><a href="rodamientos.html">Rodamientos</a></li>
                 <li><a href="accesorios.html">Accesorios</a></li>
                 <li><a href="tcompletas.html">Tablas Completas</a></li>
-                <li class="dropdown">
-                    <button type="button" class="btn btn-default dropdown-toggle icon-cart" data-toggle="dropdown"></button>
+                <li>
+                    <a type="button" class="cart-btn btn btn-default icon-cart dropdown-toggle" href="shopcart.html" style="font-size: 20px">{{"  "}} {{cartNum}}</a>
                 </li>
 
             </ul>
@@ -53,12 +53,12 @@
         <div class="row">
             <form id="search-page-form" action="search.html" class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1  ng-pristine ng-valid">
                 <div class="input-group">
-                    <input id="newsletter-mail" name="search" ng-model="search" placeholder="Modelo, Marca, Talla..." class="form-control input-lg" type="search">
+                    <input id="search-input" name="search" ng-model="search" placeholder="Modelo, Marca, Talla..." class="form-control input-lg" type="search">
                     <span class="input-group-btn">
 								<button name="submit" type="submit" class="btn btn-store">Buscar</button>
 							</span>
                 </div>
-                <input type="hidden" name="submitted" id="submitted2" value="true">
+                <!--<input type="hidden" name="submitted" id="submitted2" value="true">-->
             </form>
         </div>
     </div>
@@ -83,13 +83,14 @@
             <article class="product col-xs-12 col-sm-6 col-md-3 " ng-repeat="productItem in productsObj | filter:search as results">
                 <div class="img-box">
                     <div class="hover-mask2"></div>
-                    <span class="product-icon icon-eye"></span>
+                    <a class="product-icon icon-eye" href="productdetail.html?{{productItem.articleId}}" ></a>
                     <img class="img-responsive project-image" src="{{productItem.img}}" alt="">
                 </div>
                 <div class="product-info col-md-12">
                     <p class="project-price">{{productItem.price}} </p>
                     <div>
                         <h4 class="project-title ng-binding">{{productItem.model}}</h4>
+                        <h4 class="project-title ng-binding"><a href="search.html?search={{productItem.marca}}#">   by <strong>  {{productItem.marca}}</strong></a></h4>
                     </div>
                 </div>
             </article>
@@ -109,24 +110,49 @@
     </div>
 </footer>
 
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
+
+
 <script>
     var app = angular.module('myApp', []);
     app.controller('productsController', function($scope, $http, $location) {
 //        var productsObj;
-        $http.get("http://localhost:8080/user/articles")
+        $scope.parameters = $location.search('search');
+        $scope.search = '';
+        var urlString = $scope.parameters.$$absUrl;
+        $scope.isSubmit = urlString.includes("submit");
+        $scope.notInBlank = urlString.includes("=");
+        var search;
+        if ($scope.isSubmit) {
+            search = urlString.substring(urlString.indexOf('=') + 1, urlString.indexOf('&'));
+        } else if($scope.notInBlank) {
+            $scope.search = urlString.substring(urlString.indexOf('=') + 1, urlString.indexOf('#'));
+        } else {
+            $scope.search = "";
+        }
+        $http.get("http://localhost:8080/data/articles")
             .then(function(response) {
-                $scope.product = response.data;
                 $scope.productsObj = angular.fromJson(response.data);
-                $scope.parameters = $location.search('search');
-                var url = $scope.parameters.$$absUrl;
-                $scope.search = url.substring(url.indexOf('=') + 1, url.indexOf('#'))
                 $scope.num = document.getElementsByClassName('product').childElementCount;
             });
+
+        $http.get("http://localhost:8080/cart/articles")
+            .then(function(response) {
+                $scope.product = response.data;
+                $scope.cartProducts = angular.fromJson(response.data);
+                $scope.cartNum = $scope.cartProducts.length;
+            });
+    });
+
+    $(function(){
+        $('html, body').animate({
+            scrollTop: $('#search-container').offset().top
+        }, 1000);
+        return false;
     });
 </script>
 
 
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
 
 
 
