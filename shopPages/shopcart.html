@@ -78,11 +78,13 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="productItem in productsObj">
-                            <td class="vert-align">{{productItem.model}}    by  {{productItem.marca}}</td>
+                            <td class="vert-align"><a ng-click="GetProduct(productItem.model)">
+                                                      <!--href="productdetail.html?{{$scope.idDataParam}}"-->
+                            {{productItem.model}}</a>    by  {{productItem.marca}}</td>
                             <td class="vert-align">{{productItem.category}}</td>
                             <td class="vert-align ng-binding">{{productItem.price | number : 2}} €</td>
                             <td class=" text-center"><a ng-click="UpdateData(productItem.articleId.toString(), -1)">-</a>{{'  '}}{{productItem.quantity}}{{'  '}}<a ng-click="UpdateData(productItem.articleId, 1)">+</a></td>
-                            <td class=" ng-binding text-center">X</td>
+                            <td class=" ng-binding text-center"><a href="shopcart.html" id="deleteBtn" ng-click="DeleteData(productItem.articleId)">X</a></td>
                             <td class="text-right vert-align ng-binding">{{productItem.price | number : 2}} €</td>
                         </tr>
                         <br>
@@ -250,7 +252,7 @@
 </footer>
 
 
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
+<script type="text/javascript" src="../js/jquery-latest.pack.js"></script>
 <script type="text/javascript" src="../js/lodash.js"></script>
 
 
@@ -268,6 +270,51 @@
                 $scope.q = "";
                 $scope.cartNum = $scope.productsObj.length;
             });
+
+        $scope.GetProduct = function (model) {
+
+            $http.get("http://localhost:8080/data/articles")
+                .then(function(response) {
+                    $scope.dataProducts = angular.fromJson(response.data);
+                    $scope.matchingProducts = _.filter($scope.dataProducts, ['model', model]);
+                    $scope.idDataParam = $scope.matchingProducts[0].articleId;
+                    location.href = "productdetail.html?" + $scope.idDataParam;
+                });
+
+
+
+        };
+
+
+        $scope.DeleteData = function (idparam) {
+
+            var data = $.param({
+                firstName: $scope.firstName,
+                lastName: $scope.lastName,
+                age: $scope.age
+            });
+
+            $scope.idparam = idparam;
+
+//            $http.get("http://localhost:8080/cart/article/" + $scope.idparam )
+//                .then(function(response) {
+//                    $scope.productsObj = angular.fromJson(response.data);
+//                    $scope.q = "";
+//                    $scope.cartNum = $scope.productsObj.length;
+//                });
+
+            $http.delete('http://localhost:8080/cart/article/' + $scope.idparam)
+                .success(function (data, status, headers) {
+                    $scope.ServerResponse = data;
+                    location.reload();
+                })
+                .error(function (data, status, header, config) {
+                    $scope.ServerResponse = htmlDecode("Data: " + data +
+                        "\n\n\n\nstatus: " + status +
+                        "\n\n\n\nheaders: " + header +
+                        "\n\n\n\nconfig: " + config);
+                });
+        };
     });
 
     $(function(){
@@ -275,6 +322,11 @@
             scrollTop: $('#cart').offset().top
         }, 1000);
         return false;
+    });
+
+    $( "#deleteBtn" ).click(function() {
+        location.reload();
+
     });
 </script>
 
