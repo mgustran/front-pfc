@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="shortcut icon" href="../img/skeight_logo2.png" sizes="32x32" type="image/png">
     <script src="../js/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
+
 
 </head>
 
@@ -83,9 +85,9 @@
                             {{productItem.model}}</a>    by  {{productItem.marca}}</td>
                             <td class="vert-align">{{productItem.category}}</td>
                             <td class="vert-align ng-binding">{{productItem.price | number : 2}} €</td>
-                            <td class=" text-center"><a ng-click="UpdateData(productItem.articleId.toString(), -1)">-</a>{{'  '}}{{productItem.quantity}}{{'  '}}<a ng-click="UpdateData(productItem.articleId, 1)">+</a></td>
+                            <td class=" text-center"><a href="shopcart.html" ng-click="UpdateData(productItem.articleId, -1)">-</a>  {{productItem.quantity}}  <a href="shopcart.html" ng-click="UpdateData(productItem.articleId, 1)">+</a></td>
                             <td class=" ng-binding text-center"><a href="shopcart.html" id="deleteBtn" ng-click="DeleteData(productItem.articleId)">X</a></td>
-                            <td class="text-right vert-align ng-binding">{{productItem.price | number : 2}} €</td>
+                            <td class="text-right vert-align ng-binding">{{productItem.price * productItem.quantity | number : 2}} €</td>
                         </tr>
                         <br>
                         </tbody>
@@ -217,12 +219,12 @@
                             <tr>
                                 <td>Coste de Envio:</td>
                                 <td></td>
-                                <td class="text-right">Gartis</td>
+                                <td class="total text-right">{{totalTax | number: 2}} €</td>
                             </tr>
                             <tr>
                                 <td>Total:</td>
                                 <td></td>
-                                <td id="total" class="text-right">{{totalPrice | number: 2}} €</td>
+                                <td class="total text-right">{{totalPrice + totalTax | number: 2}} €</td>
                             </tr>
                             </tbody>
                         </table>
@@ -261,14 +263,20 @@
     var app = angular.module('skeightApp', []);
     app.controller('productsController', function($scope, $http, $location, $sce) {
 
-//        $scope.showccart = false;
         $scope.totalPrice = 0;
+        $scope.totalTax = 0;
+        $scope.shipTax = 5;
 
         $http.get("http://localhost:8080/cart/articles")
             .then(function(response) {
                 $scope.productsObj = angular.fromJson(response.data);
                 $scope.q = "";
                 $scope.cartNum = $scope.productsObj.length;
+
+                _.forEach($scope.productsObj, function (item) {
+                    $scope.totalPrice += (item.quantity * item.price);
+                    $scope.totalTax += ($scope.shipTax * item.quantity);
+                })
             });
 
         $scope.GetProduct = function (model) {
@@ -288,20 +296,7 @@
 
         $scope.DeleteData = function (idparam) {
 
-            var data = $.param({
-                firstName: $scope.firstName,
-                lastName: $scope.lastName,
-                age: $scope.age
-            });
-
             $scope.idparam = idparam;
-
-//            $http.get("http://localhost:8080/cart/article/" + $scope.idparam )
-//                .then(function(response) {
-//                    $scope.productsObj = angular.fromJson(response.data);
-//                    $scope.q = "";
-//                    $scope.cartNum = $scope.productsObj.length;
-//                });
 
             $http.delete('http://localhost:8080/cart/article/' + $scope.idparam)
                 .success(function (data, status, headers) {
@@ -315,6 +310,59 @@
                         "\n\n\n\nconfig: " + config);
                 });
         };
+
+        $scope.UpdateData = function (idParam, type) {
+            var config = {
+                headers : {
+                    'Content-Type': 'application/json'
+                }
+            };
+
+            $http.get("http://localhost:8080/cart/article/" + idParam)
+                .then(function(response) {
+                    $scope.product = angular.fromJson(response.data);
+                    $scope.product.quantity = $scope.product.quantity + (type);
+
+                    if ($scope.product.quantity !== 0 ) {
+                        $http.put('http://localhost:8080/cart/article', $scope.product, config)
+                            .success(function (data, status, headers) {
+                                $scope.ServerResponse = data;
+                            })
+                            .error(function (data, status, header, config) {
+                                $scope.deliberatelyTrustDangerousSnippet = function() {
+                                    return $sce.trustAsHtml("Data: " + data +
+                                        "\n\n\n\nstatus: " + status +
+                                        "\n\n\n\nheaders: " + header +
+                                        "\n\n\n\nconfig: " + config);
+                                };
+                                $scope.ServerResponse =  $scope.deliberatelyTrustDangerousSnippet();
+                            });
+                        location.reload();
+
+
+                    } else {
+                        $http.delete('http://localhost:8080/cart/article/' + idParam)
+                            .success(function (data, status, headers) {
+                                $scope.ServerResponse = data;
+                                location.reload();
+                            })
+                            .error(function (data, status, header, config) {
+                                $scope.ServerResponse = htmlDecode("Data: " + data +
+                                    "\n\n\n\nstatus: " + status +
+                                    "\n\n\n\nheaders: " + header +
+                                    "\n\n\n\nconfig: " + config);
+                            });
+                    }
+
+                });
+
+
+
+
+
+
+        }
+
     });
 
     $(function(){

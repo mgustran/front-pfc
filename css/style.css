@@ -648,7 +648,7 @@ form p {
     margin-top: 16px
 }
 
-#total {
+.total {
     font-weight: 600
 }
 
@@ -1356,6 +1356,38 @@ input[type="submit"]:hover {
 }
 
 
+/*      SPOTS PAGE      */
+
+#spots {
+    height: 1200px;
+}
+
+ #map_canvas {
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+}
+
+#map_canvas {
+    position: relative;
+}
+
+.angular-google-map-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin-top: 417px;
+    width: 80%;
+    padding-bottom: 850px;
+    text-align: center;
+    margin-left: 10%;
+    margin-right: 10%;
+
+}
+
+
 /*     COMMONS    */
 
 .active-page-navbar {
@@ -1478,4 +1510,6 @@ input[type="submit"]:hover {
     opacity: .6;
     background-color: #000
 }
+
+
 
