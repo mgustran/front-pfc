@@ -97,30 +97,8 @@
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
 
-<script>
-    var app = angular.module('skeightApp', []);
-    app.controller('productsController', function($scope, $http) {
-//        var productsObj;
-        $http.get("http://localhost:8080/data/articles/rodamientos")
-            .then(function(response) {
-                $scope.productsObj = angular.fromJson(response.data);
-                $scope.q = "";
-            });
+<script src="../js/shopPages/rodamientos.js">
 
-        $http.get("http://localhost:8080/cart/articles")
-            .then(function(response) {
-                $scope.product = response.data;
-                $scope.cartProducts = angular.fromJson(response.data);
-                $scope.cartNum = $scope.cartProducts.length;
-            });
-    });
-
-    $(function(){
-        $('html, body').animate({
-            scrollTop: $('#rodamientos').offset().top
-        }, 1000);
-        return false;
-    });
 </script>
 
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="skeightApp" class="ng-scope" ng-controller="productsController" ng-cloak>
+<html ng-app="skeightApp" class="ng-scope" ng-controller="spotsController" ng-cloak>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Admin Skeight - Spots</title>
@@ -118,39 +118,7 @@
 <script type="text/javascript" src="../js/lodash.js"></script>
 
 
-<script type="text/javascript">
-
-    var app = angular.module('skeightApp', []);
-    app.controller('productsController', function($scope, $http, $location, $sce) {
-
-        $http.get("http://localhost:8080/spots/spots")
-            .then(function(response) {
-                $scope.spotsObj = angular.fromJson(response.data);
-            });
-
-        $scope.DeleteData = function (idparam) {
-
-            $http.delete('http://localhost:8080/spots/spot/' + idparam)
-                .success(function (data, status, headers) {
-                    $scope.ServerResponse = data;
-                    location.reload();
-                })
-                .error(function (data, status, header, config) {
-                    $scope.ServerResponse = htmlDecode("Data: " + data +
-                        "\n\n\n\nstatus: " + status +
-                        "\n\n\n\nheaders: " + header +
-                        "\n\n\n\nconfig: " + config);
-                });
-        };
-
-    });
-
-    $(function(){
-        $('html, body').animate({
-            scrollTop: $('#cart').offset().top
-        }, 1000);
-        return false;
-    });
+<script type="text/javascript" src="../js/adminPages/spotsAdmin.js">
 
 </script>
 

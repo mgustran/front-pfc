@@ -1,10 +1,128 @@
 <!DOCTYPE html>
-<html lang="en">
+<html ng-app="skeightApp" class="ng-scope" ng-controller="ordersController" ng-cloak>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Admin Skeight - Pedidos</title>
 
-</body>
-</html>
+    <meta name="description" content="Skeight - The Definitive WebShop And Spot Finder">
+    <meta name="author" content="mgustran@github.com">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="shortcut icon" href="../img/skeight_logo2.png" sizes="32x32" type="image/png">
+    <script src="../js/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
+
+
+</head>
+
+<body id="home">
+<div id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand active" href="../home.html">
+                <img id="navlogo" src="../img/Skeight.jpg" alt="" width="122" height="45">
+            </a>
+
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul id="navigation" class="nav navbar-nav navbar-right text-center">
+                <li><a href="productsAdmin.html">Productos</a></li>
+                <li><a href="spotsAdmin.html">Spots</a></li>
+                <li><a href="messagesAdmin.html" >Mensajes</a></li>
+                <li><a href="orderAdmin.html" class="active-page-navbar">Pedidos</a></li>
+
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+
+<div id="hero" class="" data-height="600" style="height: 581px;">
+    <img class="" src="../img/cartWall.jpg" alt="wall">
+</div>
+
+
+
+<section id="cart" class="gray-bg padding-top-bottom ng-scope" >
+    <div class="container">
+        <header class="section-header text-center">
+            <h2>Pedidos</h2>
+        </header>
+
+        <div class="container">
+            <div class="row">
+                <form id="search-page-form" class="col-md-12 ng-pristine ng-valid">
+                    <div class="input-group">
+                        <input id="search-input" name="search" ng-model="search" placeholder="Pedido..." class="form-control input-lg" type="search">
+                        <span class="input-group-btn">
+								<button name="submit" type="submit" class="btn btn-store">Buscar</button>
+							</span>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <form method="post" novalidate="" id="order-form" class="ng-pristine ng-valid">
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th class="col-md-1">Id</th>
+                            <th class="col-md-2">Nombre</th>
+                            <th class="col-md-2">Email</th>
+                            <th class="col-md-2">Localidad</th>
+                            <th class="col-md-2">Pais</th>
+                            <th class="col-md-2">Precio Total</th>
+                            <th class="text-center col-md-1">Eliminar</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="orderItem in ordersObj | filter: search | orderBy: filtersA">
+                            <td class="vert-align"><a href="orderDetail.html?{{orderItem.orderId}}">{{orderItem.orderId}}</a></td>
+                            <td class="vert-align">{{orderItem.name}}</td>
+                            <td class="vert-align ng-binding">{{orderItem.email}} </td>
+                            <td class=" ng-binding text-center">{{orderItem.location}}</td>
+                            <td class=" ng-binding text-center">{{orderItem.country}}</td>
+                            <td class=" ng-binding text-center">{{orderItem.totalPrice}}</td>
+                            <td class=" ng-binding text-center"><a href="orderAdmin.html" id="deleteBtn" ng-click="DeleteData(orderItem.orderId)">X</a></td>
+                        </tr>
+                        <br>
+                        </tbody>
+                    </table>
+                </div>
+
+
+
+
+            </div>
+        </form>
+
+    </div>
+</section>
+
+<footer id="main-footer" class="dark-bg light-typo">
+    <div class="container">
+        <p class="pull-left copyright">© Skeight 2017. <br> Designed by <a href="https://github.com/mgustran" target="_blank">Miquel Gustran</a>.<br>
+        </p>
+
+        <div class="pull-right paymentMethodImg copyright">
+            <a class="btn btn-store outline" href="https://github.com/mgustran/front-pfc">Terminos y condiciones</a>
+        </div>
+    </div>
+</footer>
+
+
+<script type="text/javascript" src="../js/jquery-latest.pack.js"></script>
+<script type="text/javascript" src="../js/lodash.js"></script>
+
+
+<script type="text/javascript" src="../js/adminPages/orderAdmin.js">
+
+
+</script>
+
+</body></html>
