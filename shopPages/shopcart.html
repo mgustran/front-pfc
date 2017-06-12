@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="shortcut icon" href="../img/skeight_logo2.png" sizes="32x32" type="image/png">
     <script src="../js/angular.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
+    <script src="../js/lodash.js"></script>
 
 
 </head>
@@ -81,7 +81,6 @@
                         <tbody>
                         <tr ng-repeat="productItem in productsObj">
                             <td class="vert-align"><a ng-click="GetProduct(productItem.model)">
-                                                      <!--href="productdetail.html?{{$scope.idDataParam}}"-->
                             {{productItem.model}}</a>    by  {{productItem.marca}}</td>
                             <td class="vert-align">{{productItem.category}}</td>
                             <td class="vert-align ng-binding">{{productItem.price | number : 2}} €</td>
