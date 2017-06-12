@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html ng-app="skeightApp" class="ng-scope" ng-controller="spotsController" ng-cloak>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Admin Skeight - Modificar Spot</title>
+
+    <meta name="description" content="Skeight - The Definitive WebShop And Spot Finder">
+    <meta name="author" content="mgustran@github.com">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="shortcut icon" href="../img/skeight_logo2.png" sizes="32x32" type="image/png">
+    <script src="../js/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
+
+
+</head>
+
+<body id="home">
+<div id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand active" href="../home.html">
+                <img id="navlogo" src="../img/Skeight.jpg" alt="" width="122" height="45">
+            </a>
+
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul id="navigation" class="nav navbar-nav navbar-right text-center">
+                <li><a href="productsAdmin.html">Productos</a></li>
+                <li><a href="spotsAdmin.html" class="active-page-navbar">Spots</a></li>
+                <li><a href="messagesAdmin.html" >Mensajes</a></li>
+                <li><a href="orderAdmin.html">Pedidos</a></li>
+
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+
+<div id="hero" class="" data-height="600" style="height: 581px;">
+    <img class="" src="../img/cartWall.jpg" alt="wall">
+</div>
+
+
+
+<section id="cart" class="gray-bg padding-top-bottom ng-scope" >
+    <div class="container">
+        <header class="section-header text-center">
+            <h2>Spot</h2>
+        </header>
+
+        <div class="container padding-top-bottom-light">
+
+            <div class="col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label class="control-label">Nombre</label>
+                    <input id="name" name="name" placeholder="Nombre" class="form-control" type="email" value="{{spotItem.name}}" equired>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Direccion</label>
+                    <input id="address" name="address" placeholder="Direccion"  class="form-control" type="email" value="{{spotItem.address}}" required>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Localidad</label>
+                    <input id="location" name="location" placeholder="Localidad"  class="form-control" maxlength="" type="email" value="{{spotItem.location}}" required>
+                </div>
+            </div>
+
+
+            <div class="col-sm-6 col-md-6">
+
+                <div class="form-group">
+                    <label class="control-label">Longitud</label>
+                    <input id="longitude" name="price" placeholder="Longitud" class="form-control" type="number" value="{{spotItem.gmapsLocation1}}"  required>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Latitud</label>
+                    <input id="latitude" name="latitude" placeholder="Latitud" class="form-control" type="email" value="{{spotItem.gmapsLocation2}}" required>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Imagen (URL)</label>
+                    <input id="image" name="image" placeholder="URL..." class="form-control" type="email" value="{{spotItem.img}}" required>
+                </div>
+
+
+            </div>
+        </div>
+
+        <p>
+            <button name="submit" type="submit" class="btn btn-store btn-block" ng-if="adding === true" style="background-color: darkgreen">Añadir producto</button>
+            <button ng-click="UpdateData(spotItem.spotId)" name="submit" type="submit" class="btn btn-store btn-block" ng-if="adding === false">Modificar Producto</button>
+        </p>
+        <input type="hidden" name="submitted" id="submitted" value="true">
+
+    </div>
+</section>
+
+<footer id="main-footer" class="dark-bg light-typo">
+    <div class="container">
+        <p class="pull-left copyright">© Skeight 2017. <br> Designed by <a href="https://github.com/mgustran" target="_blank">Miquel Gustran</a>.<br>
+        </p>
+
+        <div class="pull-right paymentMethodImg copyright">
+            <a class="btn btn-store outline" href="https://github.com/mgustran/front-pfc">Terminos y condiciones</a>
+        </div>
+    </div>
+</footer>
+
+
+<script type="text/javascript" src="../js/jquery-latest.pack.js"></script>
+<script type="text/javascript" src="../js/lodash.js"></script>
+
+
+<script type="text/javascript">
+
+    var app = angular.module('skeightApp', []);
+    app.controller('spotsController', function($scope, $http, $location, $sce) {
+
+        $scope.parameters = $location.search("");
+        var url = $scope.parameters.$$absUrl;
+        if (url.includes("?")) {
+            $scope.id = url.substring(url.indexOf('?') + 1);
+            $scope.adding = false;
+            if (url.includes('ok=true')) {
+                $scope.putError = false;
+            } else {
+                $scope.putError = true;
+            }
+        } else {
+            $scope.adding = true;
+        }
+
+        $http.get("http://localhost:8080/spots/spot/" + $scope.id)
+            .then(function(response) {
+                $scope.spotItem = angular.fromJson(response.data);
+            });
+
+        $scope.DeleteData = function (idparam) {
+
+            $http.delete('http://localhost:8080/spots/spot/' + idparam)
+                .success(function (data, status, headers) {
+                    $scope.ServerResponse = data;
+                    location.reload();
+                })
+                .error(function (data, status, header, config) {
+                    $scope.ServerResponse = htmlDecode("Data: " + data +
+                        "\n\n\n\nstatus: " + status +
+                        "\n\n\n\nheaders: " + header +
+                        "\n\n\n\nconfig: " + config);
+                    location.href = location.href + '?ok=false'
+                });
+        };
+
+        $scope.UpdateData = function (idParam) {
+            var config = {
+                headers : {
+                    'Content-Type': 'application/json'
+                }
+            };
+
+            var spotIdStr = $scope.spotItem.spotId;
+            var name = document.getElementById('name').value;
+            var address = document.getElementById('address').value;
+            var location = document.getElementById('location').value;
+            var gmaps1 = document.getElementById('longitude').value;
+            var gmaps2 = document.getElementById('latitude').value;
+            var imagen = document.getElementById('image').value;
+
+            $scope.productObj = {
+                "spotId": spotIdStr,
+                "name": name,
+                "address": address,
+                "location": location,
+                "gmapsLocation1": gmaps1,
+                "gmapsLocation2": gmaps2,
+                "img": imagen
+            };
+
+
+            $http.put('http://localhost:8080/spots/spot', $scope.productObj, config)
+                .success(function (data, status, headers) {
+                    $scope.ServerResponse = data;
+                })
+                .error(function (data, status, header, config) {
+                    $scope.deliberatelyTrustDangerousSnippet = function() {
+                        location.href = location.href + '?ok=false';
+                        location.reload();
+                        return $sce.trustAsHtml("Data: " + data +
+                            "\n\n\n\nstatus: " + status +
+                            "\n\n\n\nheaders: " + header +
+                            "\n\n\n\nconfig: " + config);
+                    };
+                    $scope.ServerResponse =  $scope.deliberatelyTrustDangerousSnippet();
+                    location.href = location.href + '?ok=false';
+                    location.reload();
+                });
+        };
+
+        $scope.SendData = function () {
+
+            var config = {
+                headers : {
+                    'Content-Type': 'application/json'
+                }
+            };
+
+            var name = document.getElementById('name').value;
+            var address = document.getElementById('address').value;
+            var location = document.getElementById('location').value;
+            var gmaps1 = document.getElementById('longitude').value;
+            var gmaps2 = document.getElementById('latitude').value;
+            var imagen = document.getElementById('image').value;
+
+            $scope.productDataObj = {
+                "name": name,
+                "address": address,
+                "location": location,
+                "gmapsLocation1": gmaps1,
+                "gmapsLocation2": gmaps2,
+                "img": imagen
+            };
+
+            $http.post('http://localhost:8080/spots/spot', $scope.productDataObj, config)
+                .success(function (data, status, headers, config) {
+                    $scope.PostDataResponse = data;
+                    location.href = location.href + '?ok=true';
+                })
+                .error(function (data, status, header, config) {
+                    $scope.ResponseDetails = "Data: " + data +
+                        "<hr />status: " + status +
+                        "<hr />headers: " + header +
+                        "<hr />config: " + config;
+                    location.href = location.href + '?ok=false';
+
+                });
+        }
+
+    });
+
+    $(function(){
+        $('html, body').animate({
+            scrollTop: $('#cart').offset().top
+        }, 1000);
+        return false;
+    });
+
+</script>
+
+</body></html>

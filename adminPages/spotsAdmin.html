@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html ng-app="skeightApp" class="ng-scope" ng-controller="productsController" ng-cloak>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Admin Skeight - Spots</title>
+
+    <meta name="description" content="Skeight - The Definitive WebShop And Spot Finder">
+    <meta name="author" content="mgustran@github.com">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="shortcut icon" href="../img/skeight_logo2.png" sizes="32x32" type="image/png">
+    <script src="../js/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
+
+
+</head>
+
+<body id="home">
+<div id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand active" href="../home.html">
+                <img id="navlogo" src="../img/Skeight.jpg" alt="" width="122" height="45">
+            </a>
+
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul id="navigation" class="nav navbar-nav navbar-right text-center">
+                <li><a href="productsAdmin.html">Productos</a></li>
+                <li><a href="spotsAdmin.html" class="active-page-navbar">Spots</a></li>
+                <li><a href="messagesAdmin.html" >Mensajes</a></li>
+                <li><a href="orderAdmin.html">Pedidos</a></li>
+
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+
+<div id="hero" class="" data-height="600" style="height: 581px;">
+    <img class="" src="../img/cartWall.jpg" alt="wall">
+</div>
+
+
+
+<section id="cart" class="gray-bg padding-top-bottom ng-scope" >
+    <div class="container">
+        <header class="section-header text-center">
+            <h2>Spots</h2>
+        </header>
+
+        <div class="container">
+            <a href="spotMod.html"  name="submit" type="submit" class="btn btn-store col-md-2" style="background-color: darkgreen">Añadir Spot</a>
+
+            <div class="row">
+                <form id="search-page-form" class="col-md-9 ng-pristine ng-valid">
+                    <div class="input-group">
+                        <input id="search-input" name="search" ng-model="search" placeholder="Spot..." class="form-control input-lg" type="search">
+                        <span class="input-group-btn">
+								<button name="submit" type="submit" class="btn btn-store">Buscar</button>
+							</span>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <form action="index.html" method="post" novalidate="" id="order-form" class="ng-pristine ng-valid">
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th class="col-md-3">Spot</th>
+                            <th class="col-md-3">Localidad</th>
+                            <th class="col-md-4">Direccion</th>
+                            <th class="text-center col-md-1">Modificar</th>
+                            <th class="text-center col-md-1">Eliminar</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="spotItem in spotsObj | filter: search | orderBy: filtersA">
+                            <td class="vert-align"><a href="spotMod.html?{{spotItem.spotId}}">{{spotItem.name}}</a></td>
+                            <td class="vert-align">{{spotItem.location}}</td>
+                            <td class="vert-align ng-binding">{{spotItem.address}} </td>
+                            <td class=" ng-binding text-center"><a href="spotMod.html?{{productItem.spotId}}" id="modifyBtn">M</a></td>
+                            <td class=" ng-binding text-center"><a href="spotsAdmin.html" id="deleteBtn" ng-click="DeleteData(spotItem.spotId)">X</a></td>
+                        </tr>
+                        <br>
+                        </tbody>
+                    </table>
+                </div>
+
+
+
+
+            </div>
+        </form>
+
+    </div>
+</section>
+
+<footer id="main-footer" class="dark-bg light-typo">
+    <div class="container">
+        <p class="pull-left copyright">© Skeight 2017. <br> Designed by <a href="https://github.com/mgustran" target="_blank">Miquel Gustran</a>.<br>
+        </p>
+
+        <div class="pull-right paymentMethodImg copyright">
+            <a class="btn btn-store outline" href="https://github.com/mgustran/front-pfc">Terminos y condiciones</a>
+        </div>
+    </div>
+</footer>
+
+
+<script type="text/javascript" src="../js/jquery-latest.pack.js"></script>
+<script type="text/javascript" src="../js/lodash.js"></script>
+
+
+<script type="text/javascript">
+
+    var app = angular.module('skeightApp', []);
+    app.controller('productsController', function($scope, $http, $location, $sce) {
+
+        $http.get("http://localhost:8080/spots/spots")
+            .then(function(response) {
+                $scope.spotsObj = angular.fromJson(response.data);
+            });
+
+        $scope.DeleteData = function (idparam) {
+
+            $http.delete('http://localhost:8080/spots/spot/' + idparam)
+                .success(function (data, status, headers) {
+                    $scope.ServerResponse = data;
+                    location.reload();
+                })
+                .error(function (data, status, header, config) {
+                    $scope.ServerResponse = htmlDecode("Data: " + data +
+                        "\n\n\n\nstatus: " + status +
+                        "\n\n\n\nheaders: " + header +
+                        "\n\n\n\nconfig: " + config);
+                });
+        };
+
+    });
+
+    $(function(){
+        $('html, body').animate({
+            scrollTop: $('#cart').offset().top
+        }, 1000);
+        return false;
+    });
+
+</script>
+
+</body></html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html ng-app="skeightApp" class="ng-scope" ng-controller="adminController" ng-cloak>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Skeight - ADMIN</title>
+
+    <meta name="description" content="Skeight - The Definitive WebShop And Spot Finder">
+    <meta name="author" content="mgustran@github.com">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="shortcut icon" href="../img/skeight_logo2.png" sizes="32x32" type="image/png">
+    <script src="../js/angular.min.js"></script>
+
+</head>
+
+<body id="home" onload="location.href='#adminHome'">
+<div id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand active" href="../home.html">
+                <img id="navlogo" src="../img/Skeight.jpg" alt="microstore" width="122" height="45">
+            </a>
+
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul id="navigation" class="nav navbar-nav navbar-right text-center">
+                <li><a href="../home.html" class="active-page-navbar">Volver a la tienda</a></li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+<div id="hero" class="" data-height="600" style="height: 581px;">
+    <img class="" src="../img/shopWall2.jpg" alt="wall">
+</div>
+
+
+
+<section id="adminHome" class="padding-top-bottom-first ng-scope gray-bg" >
+    <div class="container">
+        <header class="section-header text-center">
+            <h2>Administración de la Pagina</h2>
+        </header>
+    </div>
+    <div class="container">
+        <div id="admin-container" class="row">
+
+            <article class="product col-xs-12 col-sm-6 col-md-3 ">
+                <div class="img-box">
+                    <div class="hover-mask2"></div>
+                    <a class="product-icon icon-eye" href="productsAdmin.html" ></a>
+                    <img class="img-responsive project-image" src="../img/admin/productsHome.jpg" alt="">
+                </div>
+                <div class="product-info col-md-12">
+                    <div>
+                        <h3 class="project-title text-center ng-binding"><a href="productsAdmin.html"><strong>Productos</strong></a></h3>
+                    </div>
+                </div>
+            </article>
+
+            <article class="product col-xs-12 col-sm-6 col-md-3 ">
+                <div class="img-box">
+                    <div class="hover-mask2"></div>
+                    <a class="product-icon icon-eye" href="spotsAdmin.html" ></a>
+                    <img class="img-responsive project-image" src="../img/admin/spotsHome.jpg" alt="">
+                </div>
+                <div class="product-info col-md-12">
+                    <div>
+                        <h3 class="project-title text-center ng-binding"><a href="spotsAdmin.html"><strong>Spots</strong></a></h3>
+                    </div>
+                </div>
+            </article>
+
+            <article class="product col-xs-12 col-sm-6 col-md-3 ">
+                <div class="img-box">
+                    <div class="hover-mask2"></div>
+                    <a class="product-icon icon-eye" href="orderAdmin.html" ></a>
+                    <img class="img-responsive project-image" src="../img/admin/ordrsHome.png" alt="">
+                </div>
+                <div class="product-info col-md-12">
+                    <div>
+                        <h3 class="project-title text-center ng-binding"><a href="orderAdmin.html"><strong>Pedidos</strong></a></h3>
+                    </div>
+                </div>
+            </article>
+
+            <article class="product col-xs-12 col-sm-6 col-md-3 ">
+                <div class="img-box">
+                    <div class="hover-mask2"></div>
+                    <a class="product-icon icon-eye" href="messagesAdmin.html" ></a>
+                    <img class="img-responsive project-image" src="../img/admin/messages.png" alt="">
+                </div>
+                <div class="product-info col-md-12">
+                    <div>
+                        <h3 class="project-title text-center ng-binding"><a href="messagesAdmin.html"><strong>Mensajes</strong></a></h3>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </div>
+</section>
+
+<footer id="main-footer" class="dark-bg light-typo">
+    <div class="container">
+        <p class="pull-left copyright">© Skeight 2017. <br> Designed by <a href="https://github.com/mgustran" target="_blank">Miquel Gustran</a>.<br>
+        </p>
+
+        <div class="pull-right paymentMethodImg copyright">
+            <a class="btn btn-store outline" href="https://github.com/mgustran/front-pfc">Terminos y condiciones</a>
+        </div>
+    </div>
+</footer>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
+<script type="text/javascript" src="../js/script.js"></script>
+
+<script>
+    var app = angular.module('skeightApp', []);
+    app.controller('adminController', function($scope, $http) {
+//        var productsObj;
+        $http.get("http://localhost:8080/data/articles")
+            .then(function(response) {
+                $scope.productsObj = angular.fromJson(response.data);
+                $scope.q = "";
+            });
+
+        $http.get("http://localhost:8080/cart/articles")
+            .then(function(response) {
+                $scope.product = response.data;
+                $scope.cartProducts = angular.fromJson(response.data);
+                $scope.cartNum = $scope.cartProducts.length;
+            });
+    });
+
+    $(function(){
+        $('html, body').animate({
+            scrollTop: $('#adminHome').offset().top
+        }, 1000);
+        return false;
+    });
+
+</script>
+
+
+
+
+
+</body></html>

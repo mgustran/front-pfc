@@ -28,7 +28,7 @@
         <div class="collapse navbar-collapse">
             <ul id="navigation" class="nav navbar-nav navbar-right text-center">
                 <li><a href="../shopPages/shop.html" class="">Tienda</a></li>
-                <li><a href="../spotPages/#">Mapa</a></li>
+                <li><a href="../spotPages/spots.html">Mapa</a></li>
                 <li><a href="../shopPages/contact.html">Contacto</a></li>
 
                 <li>
@@ -61,7 +61,7 @@
         <header class="section-header text-center">
             <h2>Carrito</h2>
         </header>
-        <form action="index.html" method="post" novalidate="" id="order-form" class="ng-pristine ng-valid">
+        <form  novalidate="" id="order-form" class="ng-pristine ng-valid">
             <div class="row">
                 <div class="col-sm-12 col-md-12">
                     <table class="table">
@@ -117,22 +117,22 @@
                                 <div class="col-sm-8 col-md-8">
                                     <div class="form-group">
                                         <label class="control-label">Name</label>
-                                        <input name="numeroTarjeta" placeholder="Numero de Tarjeta" class="form-control input-lg" type="text">
+                                        <input id="ccard" name="numeroTarjeta" placeholder="Numero de Tarjeta" class="form-control input-lg" type="text">
                                     </div>
                                 </div>
                                 <div class="col-sm-4 col-md-4">
                                     <div class="form-group">
                                         <label class="control-label">Code</label>
-                                        <input name="cvc" placeholder="CVC" class="form-control input-lg" type="text">
+                                        <input id="cvc" name="cvc" placeholder="CVC" class="form-control input-lg" type="text">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <label class="control-label" for="contact-mail">month</label>
+                                        <label class="control-label">Mes</label>
                                         <div class=" controls">
-                                            <select class="form-control">
+                                            <select class="form-control" id="monthCard">
                                                 <option value="January">Enero</option>
                                                 <option value="February">Febrero</option>
                                                 <option value="March">Marzo</option>
@@ -142,9 +142,9 @@
                                 </div>
                                 <div class="col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <label class="control-label" for="contact-mail">year</label>
+                                        <label class="control-label">Año</label>
                                         <div class=" controls">
-                                            <select class="form-control">
+                                            <select class="form-control" id="yearCard">
                                                 <option value="2014">2014</option>
                                                 <option value="2015">2015</option>
                                                 <option value="2016">2016</option>
@@ -174,18 +174,18 @@
                         <div class="row">
                             <div class="col-sm-6 col-md-6">
                                 <div class="form-group">
-                                    <input name="name" placeholder="Nombre" class="form-control input-lg" type="text">
+                                    <input id="name" name="name" placeholder="Nombre" class="form-control input-lg" type="text">
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-6">
                                 <div class="form-group">
-                                    <input name="lastName" placeholder="Segundo Nombre" class="form-control input-lg" type="text">
+                                    <input id="secondName" name="lastName" placeholder="Segundo Nombre" class="form-control input-lg" type="text">
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label">Email</label>
-                            <input name="email" placeholder="Tu email" class="form-control input-lg" type="email">
+                            <input id="email" name="email" placeholder="Tu email" class="form-control input-lg" type="email">
                         </div>
 
                     </div>
@@ -194,19 +194,19 @@
                         <p class="text-center"><strong>Dirección de Envio</strong></p>
                         <div class="form-group">
                             <label class="control-label">Calle</label>
-                            <input name="street" placeholder="Calle" class="form-control" type="text">
+                            <input id="address" name="street" placeholder="Calle" class="form-control" type="text">
                         </div>
                         <div class="form-group">
-                            <label class="control-label">City</label>
-                            <input name="city" placeholder="Ciudad/Población" class="form-control" type="text">
+                            <label class="control-label">Localidad</label>
+                            <input id="location" name="city" placeholder="Ciudad/Población" class="form-control" type="text">
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Country</label>
-                            <input name="country" placeholder="Pais" class="form-control" type="text">
+                            <label class="control-label">Pais</label>
+                            <input id="country" name="country" placeholder="Pais" class="form-control" type="text">
                         </div>
                         <div class="form-group">
                             <label class="control-label">postcode</label>
-                            <input name="postcode" placeholder="Codigo Postal" class="form-control" type="text">
+                            <input id="postalCode" name="postcode" placeholder="Codigo Postal" class="form-control" type="text">
                         </div>
 
                         <table class="table">
@@ -219,17 +219,17 @@
                             <tr>
                                 <td>Coste de Envio:</td>
                                 <td></td>
-                                <td class="total text-right">{{totalTax | number: 2}} €</td>
+                                <td id="totalTax" class="total text-right">{{totalTax | number: 2}} €</td>
                             </tr>
                             <tr>
                                 <td>Total:</td>
                                 <td></td>
-                                <td class="total text-right">{{totalPrice + totalTax | number: 2}} €</td>
+                                <td id="totalPrice" class="total text-right">{{totalPrice + totalTax | number: 2}} €</td>
                             </tr>
                             </tbody>
                         </table>
                         <p>
-                            <button name="submit" type="submit" class="btn btn-store btn-block">Realizar Pedido</button>
+                            <a ng-click="SendOrder()"  name="submit" type="submit" class="btn btn-store btn-block">Realizar Pedido</a>
                         </p>
                         <input type="hidden" name="submitted" id="submitted" value="true">
                     </div>
@@ -266,6 +266,7 @@
         $scope.totalPrice = 0;
         $scope.totalTax = 0;
         $scope.shipTax = 5;
+        $scope.quantitiesStr = "";
 
         $http.get("http://localhost:8080/cart/articles")
             .then(function(response) {
@@ -274,8 +275,11 @@
                 $scope.cartNum = $scope.productsObj.length;
 
                 _.forEach($scope.productsObj, function (item) {
+                    var quantityString = $scope.quantitiesStr;
                     $scope.totalPrice += (item.quantity * item.price);
                     $scope.totalTax += ($scope.shipTax * item.quantity);
+                    var quantityString2 = (item.model + ' by ' + item.marca + ' - ' + item.quantity + ', ');
+                    $scope.quantitiesStr = quantityString.concat(quantityString2);
                 })
             });
 
@@ -355,12 +359,61 @@
                     }
 
                 });
+        };
 
+        $scope.SendOrder = function () {
 
+            var config = {
+                headers : {
+                    'Content-Type': 'application/json'
+                }
+            };
 
+            var name = document.getElementById('name').value;
+            var secondName = document.getElementById('secondName').value;
+            var email = document.getElementById('email').value;
+            var ccard = 987654321654;
+            var cvc = 797;
+            var monthCard = 08;
+            var yearCard = 1996;
+            var address = document.getElementById('address').value;
+            var location = document.getElementById('location').value;
+            var country = document.getElementById('country').value;
+            var postalCode = document.getElementById('postalCode').value;
+//            var quantities = document.getElementById('quantities').value;
+//            var totalPrice = document.getElementById('totalPrice').value;
+//            var totalTax = document.getElementById('totalTax').value;
 
+            $scope.productDataObj = {
+                "name": name,
+                "secondName": secondName,
+                "email": email,
+                "ccard": ccard,
+                "cvc": cvc,
+                "monthCard": monthCard,
+                "yearCard": yearCard,
+                "address": address,
+                "location": location,
+                "country": country,
+                "postalCode": postalCode,
+                "quantities": $scope.quantitiesStr,
+                "totalPrice": $scope.totalPrice,
+                "totalTax": $scope.totalTax
+            };
 
+            $http.post('http://localhost:8080/orders/order', $scope.productDataObj, config)
+                .success(function (data, status, headers, config) {
+                    $scope.PostDataResponse = data;
+                    location.href = location.href + '?ok=true';
+                })
+                .error(function (data, status, header, config) {
+                    $scope.ResponseDetails = "Data: " + data +
+                        "<hr />status: " + status +
+                        "<hr />headers: " + header +
+                        "<hr />config: " + config;
+                    location.href = location.href + '?ok=false';
 
+                });
         }
 
     });

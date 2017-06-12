@@ -55,7 +55,7 @@
         <div class="collapse navbar-collapse">
             <ul id="navigation" class="nav navbar-nav navbar-right text-center">
                 <li><a href="../shopPages/shop.html" class="">Tienda</a></li>
-                <li><a href="../spotPages/#">Mapa</a></li>
+                <li><a href="../spotPages/spots.html">Mapa</a></li>
                 <li><a href="../shopPages/contact.html">Contacto</a></li>
                 <li>
                     <a type="button" class="cart-btn btn btn-default icon-cart dropdown-toggle" style="font-size: 20px" href="../shopPages/shopcart.html">{{"  "}} {{}}</a>
@@ -244,6 +244,14 @@
                 $scope.openD = !$scope.openD;
             });
         });
+
+    $(function(){
+        $('html, body').animate({
+            scrollTop: $('#spots').offset().top
+        }, 1000);
+        return false;
+    });
+
 </script>
 
 <script type='text/javascript' src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAMoGzXn8Tds_uKBbrvV1UV0iHOazZCMRY'></script>
